@@ -1,0 +1,327 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
+from django.contrib import messages
+from django.urls import reverse
+from django.http import JsonResponse
+from django.db.models import Count
+from django.utils import timezone
+from datetime import timedelta, datetime
+from django.core.mail import send_mail
+from django.conf import settings
+from django.db import transaction
+import json
+
+from .models import Project, Testimonial, Statistics, ContactMessage
+from .forms import (
+    LoginForm, ProjectForm, TestimonialForm, 
+    StatisticsForm, ContactMessageForm
+)
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+        
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('dashboard')
+    else:
+        form = LoginForm()
+    
+    return render(request, 'dashboard/login.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+@login_required
+def dashboard(request):
+    # Получаем статистику для дашборда
+    projects_count = Project.objects.count()
+    testimonials_count = Testimonial.objects.count()
+    unread_messages = ContactMessage.objects.filter(is_read=False).count()
+    
+    # Получаем последние сообщения
+    recent_messages = ContactMessage.objects.all()[:5]
+    
+    # Получаем последние отзывы
+    recent_testimonials = Testimonial.objects.all()[:5]
+    
+    # Получаем последние проекты
+    recent_projects = Project.objects.all()[:5]
+    
+    # Статистика сообщений по дням (за последнюю неделю)
+    today = timezone.now().date()
+    week_ago = today - timedelta(days=7)
+    
+    messages_by_day = (
+        ContactMessage.objects
+        .filter(created_at__date__gte=week_ago)
+        .extra({'day': "date(created_at)"})
+        .values('day')
+        .annotate(count=Count('id'))
+        .order_by('day')
+    )
+    
+    # Преобразуем в формат для графика
+    days = [(week_ago + timedelta(days=i)).strftime('%d.%m') for i in range(8)]
+    message_counts = [0] * 8
+    
+    for item in messages_by_day:
+        # Преобразуем строку в объект date
+        if isinstance(item['day'], str):
+            try:
+                # Пробуем разные форматы даты
+                try:
+                    day_date = datetime.strptime(item['day'], '%Y-%m-%d').date()
+                except ValueError:
+                    day_date = datetime.strptime(item['day'], '%d.%m.%Y').date()
+            except ValueError:
+                # Если не удалось преобразовать, пропускаем эту запись
+                continue
+        else:
+            day_date = item['day']
+            
+        day_diff = (day_date - week_ago).days
+        if 0 <= day_diff < 8:
+            message_counts[day_diff] = item['count']
+    
+    context = {
+        'projects_count': projects_count,
+        'testimonials_count': testimonials_count,
+        'unread_messages': unread_messages,
+        'recent_messages': recent_messages,
+        'recent_testimonials': recent_testimonials,
+        'recent_projects': recent_projects,
+        'days': days,
+        'message_counts': message_counts,
+        'max_count': max(message_counts) if message_counts else 5,
+    }
+    
+    return render(request, 'dashboard/index.html', context)
+
+# Представления для проектов
+@login_required
+def project_list(request):
+    projects = Project.objects.all()
+    return render(request, 'dashboard/projects/list.html', {'projects': projects})
+
+@login_required
+def reorder_projects(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            projects_data = data.get('projects', [])
+            
+            with transaction.atomic():
+                for project_data in projects_data:
+                    project_id = project_data.get('id')
+                    new_order = project_data.get('order')
+                    
+                    if project_id and new_order is not None:
+                        Project.objects.filter(id=project_id).update(order=new_order)
+            
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+@login_required
+def project_create(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save()
+            messages.success(request, 'Проект успешно создан')
+            return redirect('project_list')
+    else:
+        form = ProjectForm()
+    
+    return render(request, 'dashboard/projects/form.html', {
+        'form': form,
+        'title': 'Создание проекта'
+    })
+
+@login_required
+def project_edit(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES, instance=project)
+        if form.is_valid():
+            project = form.save()
+            messages.success(request, 'Проект успешно обновлен')
+            return redirect('project_list')
+    else:
+        form = ProjectForm(instance=project)
+    
+    return render(request, 'dashboard/projects/form.html', {
+        'form': form,
+        'project': project,
+        'title': 'Редактирование проекта'
+    })
+
+@login_required
+def project_delete(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    
+    if request.method == 'POST':
+        project.delete()
+        messages.success(request, 'Проект успешно удален')
+        return redirect('project_list')
+    
+    return render(request, 'dashboard/projects/delete.html', {'project': project})
+
+# Представления для отзывов
+@login_required
+def testimonial_list(request):
+    testimonials = Testimonial.objects.all()
+    return render(request, 'dashboard/testimonials/list.html', {'testimonials': testimonials})
+
+@login_required
+def testimonial_create(request):
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Отзыв успешно создан')
+            return redirect('testimonial_list')
+    else:
+        form = TestimonialForm()
+    
+    return render(request, 'dashboard/testimonials/form.html', {
+        'form': form,
+        'title': 'Создание отзыва'
+    })
+
+@login_required
+def testimonial_edit(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, instance=testimonial)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Отзыв успешно обновлен')
+            return redirect('testimonial_list')
+    else:
+        form = TestimonialForm(instance=testimonial)
+    
+    return render(request, 'dashboard/testimonials/form.html', {
+        'form': form,
+        'testimonial': testimonial,
+        'title': 'Редактирование отзыва'
+    })
+
+@login_required
+def testimonial_delete(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    
+    if request.method == 'POST':
+        testimonial.delete()
+        messages.success(request, 'Отзыв успешно удален')
+        return redirect('testimonial_list')
+    
+    return render(request, 'dashboard/testimonials/delete.html', {'testimonial': testimonial})
+
+# Представления для статистики
+@login_required
+def statistics_edit(request):
+    stats = Statistics.objects.first()
+    if not stats:
+        stats = Statistics.objects.create()
+    
+    if request.method == 'POST':
+        form = StatisticsForm(request.POST, instance=stats)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Статистика успешно обновлена')
+            return redirect('dashboard')
+    else:
+        form = StatisticsForm(instance=stats)
+    
+    return render(request, 'dashboard/statistics/form.html', {'form': form})
+
+# Представления для сообщений
+@login_required
+def message_list(request):
+    messages_list = ContactMessage.objects.all().order_by('-created_at')
+    
+    if request.method == 'POST' and 'mark_all_read' in request.POST:
+        ContactMessage.objects.filter(is_read=False).update(is_read=True)
+        messages.success(request, 'Все сообщения отмечены как прочитанные!')
+        return redirect('message_list')
+    
+    return render(request, 'dashboard/messages/list.html', {'messages_list': messages_list})
+
+@login_required
+def message_view(request, pk):
+    message = get_object_or_404(ContactMessage, pk=pk)
+    
+    if not message.is_read:
+        message.is_read = True
+        message.save()
+    
+    if request.method == 'POST':
+        if 'is_read' in request.POST:
+            message.is_read = True if request.POST.get('is_read') == 'on' else False
+            message.save()
+            messages.success(request, 'Статус сообщения обновлен')
+            return redirect('message_view', pk=message.pk)
+    
+    return render(request, 'dashboard/messages/view.html', {'message': message})
+
+@login_required
+def message_delete(request, pk):
+    message = get_object_or_404(ContactMessage, pk=pk)
+    
+    if request.method == 'POST':
+        message.delete()
+        messages.success(request, 'Сообщение успешно удалено')
+        return redirect('message_list')
+    
+    return render(request, 'dashboard/messages/delete.html', {'message': message})
+
+@login_required
+def message_reply(request, pk):
+    message = get_object_or_404(ContactMessage, pk=pk)
+    
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        reply_text = request.POST.get('message')
+        mark_read = request.POST.get('mark_read') == 'on'
+        
+        if subject and reply_text:
+            # Отправка email
+            send_mail(
+                subject,
+                reply_text,
+                settings.DEFAULT_FROM_EMAIL,
+                [message.email],
+                fail_silently=False,
+            )
+            
+            # Отметить как прочитанное если выбрано
+            if mark_read:
+                message.is_read = True
+                message.save()
+            
+            messages.success(request, f'Ответ успешно отправлен на {message.email}!')
+            return redirect('message_list')
+        else:
+            messages.error(request, 'Пожалуйста, заполните все поля формы!')
+    
+    return render(request, 'dashboard/messages/reply.html', {'message': message})
+
+@login_required
+def mark_all_read(request):
+    if request.method == 'POST':
+        ContactMessage.objects.filter(is_read=False).update(is_read=True)
+        messages.success(request, 'Все сообщения отмечены как прочитанные')
+    
+    return redirect('message_list') 

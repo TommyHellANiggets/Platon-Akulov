@@ -1,0 +1,146 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - Панель управления{% endblock %}
+
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>{{ title }}</span>
+        <a href="{% url 'project_list' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i> Назад к списку
+        </a>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="{{ form.title.id_for_label }}" class="form-label">Название проекта</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.title.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.url.id_for_label }}" class="form-label">URL проекта</label>
+                    {{ form.url }}
+                    {% if form.url.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.url.errors }}
+                        </div>
+                    {% endif %}
+                    <div class="form-text">Необязательно. Ссылка на сайт проекта.</div>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="{{ form.created_at.id_for_label }}" class="form-label">Дата создания</label>
+                    {{ form.created_at }}
+                    {% if form.created_at.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.created_at.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.order.id_for_label }}" class="form-label">Порядок отображения</label>
+                    {{ form.order }}
+                    {% if form.order.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.order.errors }}
+                        </div>
+                    {% endif %}
+                    <div class="form-text">Меньшее значение = выше в списке</div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.image.id_for_label }}" class="form-label">Изображение проекта</label>
+                {% if project and project.image %}
+                    <div class="mb-2">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-thumbnail" style="max-height: 200px;">
+                    </div>
+                {% endif %}
+                {{ form.image }}
+                {% if form.image.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.image.errors }}
+                    </div>
+                {% endif %}
+                <div class="form-text mt-2">Рекомендуемое соотношение сторон 16:9. Загружайте изображение уже обрезанное.</div>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i> Сохранить
+                </button>
+                
+                <a href="{% url 'project_list' %}" class="btn btn-outline-secondary">
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Подключаем jQuery UI для datepicker -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Инициализация datepicker
+        $(".datepicker").datepicker({
+            dateFormat: 'dd.mm.yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2000:2030",
+            firstDay: 1, // Понедельник как первый день недели
+            monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+            dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+            dayNamesShort: ['Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт'],
+            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+        });
+        
+        // Предпросмотр изображения
+        const imageInput = document.getElementById('{{ form.image.id_for_label }}');
+        const previewContainer = document.querySelector('.img-thumbnail')?.parentElement;
+        
+        if (imageInput && previewContainer) {
+            imageInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Создаем новое изображение для предпросмотра, если его еще нет
+                        if (!previewContainer.querySelector('.img-thumbnail')) {
+                            const img = document.createElement('img');
+                            img.classList.add('img-thumbnail');
+                            img.style.maxHeight = '200px';
+                            previewContainer.appendChild(img);
+                        }
+                        
+                        // Обновляем источник изображения
+                        const previewImage = previewContainer.querySelector('.img-thumbnail');
+                        previewImage.src = e.target.result;
+                        previewImage.alt = 'Предпросмотр';
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 

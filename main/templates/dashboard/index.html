@@ -1,0 +1,235 @@
+{% extends 'dashboard/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Главная - Панель управления{% endblock %}
+
+{% block page_title %}Дашборд{% endblock %}
+
+{% block content %}
+<!-- Статистика -->
+<div class="dashboard-stats">
+    <div class="stat-card fade-in">
+        <div class="stat-icon primary">
+            <i class="fas fa-project-diagram"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">{{ projects_count }}</div>
+            <div class="stat-label">Проектов</div>
+        </div>
+    </div>
+    
+    <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+        <div class="stat-icon secondary">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">{{ testimonials_count }}</div>
+            <div class="stat-label">Отзывов</div>
+        </div>
+    </div>
+    
+    <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+        <div class="stat-icon warning">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">{{ messages_count }}</div>
+            <div class="stat-label">Сообщений</div>
+        </div>
+    </div>
+    
+    <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+        <div class="stat-icon danger">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">{{ unread_messages_count }}</div>
+            <div class="stat-label">Непрочитанных</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- График сообщений -->
+    <div class="col-lg-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0">Статистика сообщений за неделю</h5>
+            </div>
+            <div class="card-body">
+                <div id="custom-chart" style="height: 300px; width: 100%; position: relative;">
+                    <div class="chart-bars" style="display: flex; height: 250px; align-items: flex-end; justify-content: space-around; padding: 0 20px;">
+                        {% for count in message_counts %}
+                        {% with max_height=200 scale_factor=max_count|default:1 %}
+                        {% with bar_height=count|floatformat:0|default:0|multiply:max_height|divide:scale_factor|default:0 %}
+                        <div class="chart-bar-container" style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                            <div class="chart-bar" style="width: 30px; background-color: #1db954; border-radius: 4px 4px 0 0; transition: height 0.3s ease; height: {{ bar_height }}px; min-height: {% if count > 0 %}2{% else %}0{% endif %}px;"></div>
+                            <div class="chart-label" style="margin-top: 8px; font-size: 12px; color: #666;">{{ days|index:forloop.counter0 }}</div>
+                            <div class="chart-value" style="position: absolute; bottom: {{ bar_height|add:260 }}px; font-size: 12px; font-weight: bold;">{{ count }}</div>
+                        </div>
+                        {% endwith %}
+                        {% endwith %}
+                        {% endfor %}
+                    </div>
+                    <div class="chart-y-axis" style="position: absolute; left: 0; top: 0; height: 250px; display: flex; flex-direction: column; justify-content: space-between; padding: 0 5px;">
+                        <span style="font-size: 10px; color: #888;">{{ max_count }}</span>
+                        <span style="font-size: 10px; color: #888;">{{ max_count|floatformat:0|divide:2|floatformat:0 }}</span>
+                        <span style="font-size: 10px; color: #888;">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Последние сообщения -->
+    <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Последние сообщения</h5>
+                <a href="{% url 'message_list' %}" class="btn btn-sm btn-outline-primary">Все</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for message in recent_messages %}
+                        <a href="{% url 'message_view' message.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-1">{{ message.name }}</h6>
+                                <small>{{ message.created_at|date:"d.m.Y" }}</small>
+                            </div>
+                            <p class="mb-1 text-truncate">{{ message.message|truncatechars:60 }}</p>
+                            {% if not message.is_read %}
+                                <span class="badge bg-danger">Новое</span>
+                            {% endif %}
+                        </a>
+                    {% empty %}
+                        <div class="list-group-item text-center py-4">
+                            <i class="fas fa-envelope fa-2x mb-2 text-muted"></i>
+                            <p class="mb-0 text-muted">Нет сообщений</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Быстрые действия -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Быстрые действия</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a href="{% url 'project_create' %}" class="btn btn-primary w-100 py-3">
+                    <i class="fas fa-plus-circle me-2"></i> Добавить проект
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a href="{% url 'testimonial_create' %}" class="btn btn-primary w-100 py-3">
+                    <i class="fas fa-plus-circle me-2"></i> Добавить отзыв
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a href="{% url 'statistics_edit' %}" class="btn btn-primary w-100 py-3">
+                    <i class="fas fa-edit me-2"></i> Редактировать статистику
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <a href="{% url 'mark_all_read' %}" class="btn btn-primary w-100 py-3" onclick="event.preventDefault(); document.getElementById('mark-all-read-form').submit();">
+                    <i class="fas fa-check-double me-2"></i> Отметить все как прочитанные
+                </a>
+                <form id="mark-all-read-form" action="{% url 'mark_all_read' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Последние проекты -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Последние проекты</h5>
+                <a href="{% url 'project_list' %}" class="btn btn-sm btn-outline-primary">Все</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for project in recent_projects %}
+                        <a href="{% url 'project_edit' project.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-1">{{ project.title }}</h6>
+                                <small>{{ project.created_at|date:"d.m.Y" }}</small>
+                            </div>
+                            <p class="mb-1 text-truncate">{{ project.description|truncatechars:60 }}</p>
+                        </a>
+                    {% empty %}
+                        <div class="list-group-item text-center py-4">
+                            <i class="fas fa-project-diagram fa-2x mb-2 text-muted"></i>
+                            <p class="mb-0 text-muted">Нет проектов</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Последние отзывы -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Последние отзывы</h5>
+                <a href="{% url 'testimonial_list' %}" class="btn btn-sm btn-outline-primary">Все</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for testimonial in recent_testimonials %}
+                        <a href="{% url 'testimonial_edit' testimonial.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-1">{{ testimonial.username }}</h6>
+                                <small>{{ testimonial.created_at|date:"d.m.Y" }}</small>
+                            </div>
+                            <p class="mb-1 text-truncate">{{ testimonial.text|truncatechars:60 }}</p>
+                            {% if testimonial.is_positive %}
+                                <span class="badge bg-success">Положительный</span>
+                            {% else %}
+                                <span class="badge bg-danger">Отрицательный</span>
+                            {% endif %}
+                        </a>
+                    {% empty %}
+                        <div class="list-group-item text-center py-4">
+                            <i class="fas fa-comment-dots fa-2x mb-2 text-muted"></i>
+                            <p class="mb-0 text-muted">Нет отзывов</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Обновление цветов графика при переключении темы
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                const isDarkTheme = document.body.classList.contains('dark-theme');
+                const chartBars = document.querySelectorAll('.chart-bar');
+                
+                chartBars.forEach(bar => {
+                    if (isDarkTheme) {
+                        bar.style.backgroundColor = '#2ee26a';
+                    } else {
+                        bar.style.backgroundColor = '#1db954';
+                    }
+                });
+            });
+        }
+    });
+</script>
+{% endblock %} 

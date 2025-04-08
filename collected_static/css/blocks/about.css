@@ -1,0 +1,841 @@
+/* Стили для секции Обо мне */
+.about {
+    padding: 100px 0;
+    background-color: #000000;
+    position: relative;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(29, 185, 84, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(24, 119, 242, 0.05) 0%, transparent 40%);
+    z-index: 0;
+}
+
+.about .container {
+    position: relative;
+    z-index: 1;
+}
+
+.about-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin: 50px 0;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    position: relative;
+    width: 440px;
+    height: 440px;
+}
+
+/* Стили для круга разработки */
+.dev-cycle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cycle-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 36px;
+    box-shadow: 0 0 30px rgba(29, 185, 84, 0.3);
+    z-index: 3;
+}
+
+.rays {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(29, 185, 84, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(29, 185, 84, 0);
+    }
+}
+
+.cycle-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.effect-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.effect-1 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    animation: rotate 30s linear infinite;
+}
+
+.effect-2 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    animation: rotate 40s linear infinite reverse;
+}
+
+.effect-3 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 380px;
+    height: 380px;
+    animation: rotate 50s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.cycle-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.cycle-items {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.cycle-item {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cycle-item span {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color-secondary);
+    transition: color 0.3s ease;
+}
+
+.cycle-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--text-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* Позиционирование элементов цикла */
+.cycle-item[data-index="0"] {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cycle-item[data-index="1"] {
+    top: 25%;
+    right: 5%;
+}
+
+.cycle-item[data-index="2"] {
+    top: 65%;
+    right: 5%;
+}
+
+.cycle-item[data-index="3"] {
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cycle-item[data-index="4"] {
+    top: 65%;
+    left: 5%;
+}
+
+.cycle-item[data-index="5"] {
+    top: 25%;
+    left: 5%;
+}
+
+/* Активный элемент цикла */
+.cycle-item.active .cycle-icon {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(29, 185, 84, 0.2);
+}
+
+.cycle-item.active span {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Эффект при наведении */
+.cycle-item:hover .cycle-icon {
+    transform: scale(1.05) translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.cycle-item:hover span {
+    color: var(--primary-color);
+}
+
+/* Правая часть с текстовой информацией */
+.about-details {
+    flex: 1;
+    animation: fadeIn 0.8s ease;
+}
+
+.about-header {
+    margin-bottom: 25px;
+}
+
+.about-header h3 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.about-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-color-secondary);
+    margin-bottom: 20px;
+}
+
+.about-description p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: var(--text-color-secondary);
+    position: relative;
+    padding-left: 20px;
+}
+
+.about-description p::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+/* Анимации для текста */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.about-description p {
+    animation: fadeInRight 0.5s ease forwards;
+    opacity: 0;
+}
+
+.about-description p:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.about-description p:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+/* Статистика */
+.stats-wrapper {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.plus-sign {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    top: -5px;
+    margin-left: 2px;
+}
+
+.stat-value span {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--text-color-secondary);
+    font-weight: 500;
+}
+
+/* Технологический стек */
+.skills-wrapper {
+    margin-top: 80px;
+}
+
+.skills-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.skills-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-radius: 3px;
+}
+
+.tech-stack-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
+}
+
+/* Верхний ряд: каждая плашка занимает по 2 столбца */
+.tech-category:nth-child(1) {
+    grid-column: 1 / span 2;
+}
+
+.tech-category:nth-child(2) {
+    grid-column: 3 / span 2;
+}
+
+.tech-category:nth-child(3) {
+    grid-column: 5 / span 2;
+}
+
+/* Нижний ряд: каждая плашка занимает по 3 столбца */
+.tech-category:nth-child(4) {
+    grid-column: 1 / span 3;
+}
+
+.tech-category:nth-child(5) {
+    grid-column: 4 / span 3;
+}
+
+.tech-category {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+}
+
+.tech-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tech-category:hover {
+    transform: none;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.tech-category:hover::before {
+    opacity: 1;
+}
+
+.tech-category-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.tech-category-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    margin-right: 15px;
+    box-shadow: 0 5px 15px rgba(29, 185, 84, 0.2);
+}
+
+.tech-category h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-color);
+    background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Эффект глитча для текста при наведении */
+.tech-category:hover h4 {
+    position: relative;
+    animation: none;
+}
+
+/* В нижних карточках по 3 элемента в ряд */
+.tech-category:nth-child(4) .tech-items,
+.tech-category:nth-child(5) .tech-items {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tech-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.tech-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.tech-item:hover {
+    transform: none;
+    background: rgba(29, 185, 84, 0.1);
+    border-color: rgba(29, 185, 84, 0.2);
+}
+
+/* Добавляем эффект глитча для текста внутри карточки при наведении */
+.tech-item:hover span {
+    position: relative;
+    animation: itemGlitch 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes itemGlitch {
+    0% {
+        text-shadow: 1px 0 0 rgba(29, 185, 84, 0.5), -1px 0 0 rgba(24, 119, 242, 0.5);
+        transform: translateX(0);
+    }
+    25% {
+        text-shadow: 1px 0 0 rgba(29, 185, 84, 0.5), -1px 0 0 rgba(24, 119, 242, 0.5);
+    }
+    50% {
+        text-shadow: -1px 0 0 rgba(29, 185, 84, 0.5), 1px 0 0 rgba(24, 119, 242, 0.5);
+        transform: translateX(1px);
+    }
+    75% {
+        text-shadow: -1px 0 0 rgba(29, 185, 84, 0.5), 1px 0 0 rgba(24, 119, 242, 0.5);
+    }
+    100% {
+        text-shadow: 1px 0 0 rgba(29, 185, 84, 0.5), -1px 0 0 rgba(24, 119, 242, 0.5);
+        transform: translateX(0);
+    }
+}
+
+.tech-item i {
+    margin-right: 12px;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.tech-item span {
+    font-size: 0.95rem;
+    color: var(--text-color-secondary);
+    letter-spacing: 0.3px;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .about-wrapper {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .image-container {
+        width: 380px;
+        height: 380px;
+    }
+    
+    .about-details {
+        text-align: center;
+    }
+    
+    .about-description p {
+        padding-left: 0;
+        text-align: left;
+    }
+    
+    .about-description p::before {
+        display: none;
+    }
+
+    .tech-stack-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .tech-category:nth-child(1) {
+        grid-column: 1 / span 2;
+    }
+    
+    .tech-category:nth-child(2) {
+        grid-column: 3 / span 2;
+    }
+    
+    .tech-category:nth-child(3) {
+        grid-column: 1 / span 4;
+    }
+    
+    .tech-category:nth-child(4) {
+        grid-column: 1 / span 2;
+    }
+    
+    .tech-category:nth-child(5) {
+        grid-column: 3 / span 2;
+    }
+    
+    /* Корректируем сетку внутри нижних карточек на планшетах */
+    .tech-category:nth-child(4) .tech-items,
+    .tech-category:nth-child(5) .tech-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 60px 0;
+    }
+    
+    .image-container {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .cycle-center {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+    }
+    
+    .cycle-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .effect-1 {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .effect-2 {
+        width: 230px;
+        height: 230px;
+    }
+    
+    .effect-3 {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .tech-stack-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Для всех категорий в мобильной версии занимаем всю ширину */
+    .tech-category:nth-child(n) {
+        grid-column: 1 / -1;
+    }
+    
+    /* В мобильной версии для всех карточек делаем по 2 элемента в ряд */
+    .tech-category .tech-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .image-container {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .cycle-center {
+        width: 70px;
+        height: 70px;
+        font-size: 26px;
+    }
+    
+    .cycle-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .cycle-item span {
+        font-size: 12px;
+    }
+    
+    .effect-1 {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .effect-2 {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .effect-3 {
+        width: 260px;
+        height: 260px;
+    }
+    
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-item {
+        min-width: 100%;
+    }
+    
+    /* Для очень маленьких экранов - по 1 элементу в ряд */
+    .tech-category .tech-items {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Стили для светлой темы */
+body.light-theme .about {
+    background-color: #000000;
+}
+
+body.light-theme .about-subtitle,
+body.light-theme .about-description p,
+body.light-theme .about-header h3,
+body.light-theme .skills-title,
+body.light-theme .stat-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body.light-theme .cycle-icon {
+    background: var(--light-bg-color);
+    color: var(--light-text-color);
+}
+
+body.light-theme .tech-category {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .tech-category:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .tech-category h4 {
+    background: linear-gradient(90deg, #121212, #333333);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Убираем эффект глитча для светлой темы */
+body.light-theme .tech-category:hover h4 {
+    animation: none;
+}
+
+body.light-theme .tech-item {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .tech-item:hover {
+    background: rgba(29, 185, 84, 0.05);
+    border-color: rgba(29, 185, 84, 0.1);
+}
+
+/* Эффект глитча для элементов в светлой теме */
+body.light-theme .tech-item:hover span {
+    animation: light-item-glitch 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes light-item-glitch {
+    0% {
+        text-shadow: 1px 0 0 rgba(29, 185, 84, 0.8), -1px 0 0 rgba(24, 119, 242, 0.8);
+        transform: translateX(0);
+    }
+    25% {
+        text-shadow: 1px 0 0 rgba(29, 185, 84, 0.8), -1px 0 0 rgba(24, 119, 242, 0.8);
+    }
+    50% {
+        text-shadow: -1px 0 0 rgba(29, 185, 84, 0.8), 1px 0 0 rgba(24, 119, 242, 0.8);
+        transform: translateX(1px);
+    }
+    75% {
+        text-shadow: -1px 0 0 rgba(29, 185, 84, 0.8), 1px 0 0 rgba(24, 119, 242, 0.8);
+    }
+    100% {
+        text-shadow: 1px 0 0 rgba(29, 185, 84, 0.8), -1px 0 0 rgba(24, 119, 242, 0.8);
+        transform: translateX(0);
+    }
+}
+
+body.light-theme .stats-wrapper {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .effect-circle {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .tech-item span,
+body.light-theme .cycle-item span {
+    color: rgba(255, 255, 255, 0.8); /* Светлый текст для элементов технологий в светлой теме */
+}
+
+body.light-theme .tech-category {
+    background-color: rgba(20, 20, 20, 0.8); /* Темный фон для категорий в светлой теме */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light-theme .tech-category:hover {
+    background-color: rgba(40, 40, 40, 0.9);
+    border-color: var(--primary-color);
+}
+
+body.light-theme .tech-category h4 {
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(230, 230, 230, 0.8));
+    -webkit-background-clip: text;
+    background-clip: text;
+}

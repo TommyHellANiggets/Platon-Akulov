@@ -1,0 +1,108 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Редактирование статистики{% endblock %}
+
+{% block page_title %}Редактирование статистики{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Редактирование статистики сайта</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h6 class="fw-bold">Основные показатели</h6>
+                    <hr>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="{{ form.years_experience.id_for_label }}" class="form-label">{{ form.years_experience.label }}</label>
+                    {{ form.years_experience }}
+                    {% if form.years_experience.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.years_experience.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="{{ form.projects_count.id_for_label }}" class="form-label">{{ form.projects_count.label }}</label>
+                    {{ form.projects_count }}
+                    {% if form.projects_count.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.projects_count.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="{{ form.clients_count.id_for_label }}" class="form-label">{{ form.clients_count.label }}</label>
+                    {{ form.clients_count }}
+                    {% if form.clients_count.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.clients_count.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <h6 class="fw-bold">Дополнительные показатели</h6>
+                    <hr>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="{{ form.positive_reviews.id_for_label }}" class="form-label">{{ form.positive_reviews.label }}</label>
+                    {{ form.positive_reviews }}
+                    {% if form.positive_reviews.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.positive_reviews.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="{{ form.hours_worked.id_for_label }}" class="form-label">{{ form.hours_worked.label }}</label>
+                    {{ form.hours_worked }}
+                    {% if form.hours_worked.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.hours_worked.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="{{ form.lines_of_code.id_for_label }}" class="form-label">{{ form.lines_of_code.label }}</label>
+                    {{ form.lines_of_code }}
+                    {% if form.lines_of_code.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.lines_of_code.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем класс Bootstrap для числовых полей
+        const numberInputs = document.querySelectorAll('input[type="number"]');
+        numberInputs.forEach(input => {
+            input.classList.add('form-control');
+        });
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,80 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Ответ на сообщение - Панель управления{% endblock %}
+
+{% block page_title %}Ответ на сообщение{% endblock %}
+
+{% block page_actions %}
+<a href="{% url 'message_list' %}" class="btn btn-outline-secondary">
+    <i class="fas fa-arrow-left me-2"></i> Назад к списку
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Информация о сообщении</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Имя отправителя</label>
+                            <p>{{ message.name }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <p>{{ message.email }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Текст сообщения</label>
+                    <div class="border p-3 rounded bg-light">
+                        {{ message.message|linebreaks }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="subject" class="form-label">Тема письма</label>
+                <input type="text" class="form-control" id="subject" name="subject" value="Re: Сообщение с сайта">
+            </div>
+            
+            <div class="mb-3">
+                <label for="message" class="form-label">Текст ответа</label>
+                <textarea class="form-control" id="message" name="message" rows="6"></textarea>
+                <div class="form-text">
+                    Введите текст ответа на сообщение. Письмо будет отправлено на адрес {{ message.email }}.
+                </div>
+            </div>
+            
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="mark_read" name="mark_read" 
+                       {% if not message.is_read %}checked{% endif %}>
+                <label class="form-check-label" for="mark_read">Отметить сообщение как прочитанное</label>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane me-2"></i> Отправить ответ
+                </button>
+                
+                <a href="{% url 'message_view' message.id %}" class="btn btn-outline-secondary">
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 
