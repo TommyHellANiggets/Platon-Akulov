@@ -26,7 +26,7 @@
     margin-top: -60px; /* Поднимаем контент выше */
 }
 
-/* Применяем шрифт Pacifico к заголовку */
+/* Заголовок героя теперь использует Onest/Manrope */
 .hero h1 {
     font-size: 4.5rem;
     font-weight: 700;
@@ -35,7 +35,7 @@
     text-align: center;
     color: white;
     animation: fadeIn 1s ease-out forwards;
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font-secondary);
 }
 
 .hero-title {
@@ -79,7 +79,7 @@
     background-clip: text;
     color: transparent;
     text-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
-    font-family: 'Pacifico', cursive;
+    font-family: var(--font-primary);
 }
 
 .hero h1 .accent-text::after {
@@ -124,7 +124,7 @@
     opacity: 0;
 }
 
-/* Возвращаем стандартные стили для кнопок, без Pacifico */
+/* Кнопки работают с новой гарнитурой, без кастомного шрифта */
 .hero-buttons .btn {
     padding: 15px 30px;
     font-size: 1.1rem;
@@ -507,7 +507,7 @@ body.scrolling ::-webkit-scrollbar-thumb {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    font-family: 'Roboto Mono', 'Courier New', monospace;
+    font-family: var(--font-mono), 'Courier New', monospace;
     margin: 3rem auto 2rem;
     backdrop-filter: blur(30px);
 }
@@ -617,79 +617,108 @@ body.scrolling ::-webkit-scrollbar-thumb {
     color: rgba(100, 200, 255, 0.85);
 }
 
+/* editor mode */
+.terminal-panel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 12, 24, 0.85);
+}
+
+.terminal-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.terminal-tab {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.terminal-tab.active {
+    background: rgba(29, 185, 84, 0.18);
+    color: #9ef5cf;
+    border: 1px solid rgba(29, 185, 84, 0.4);
+}
+
+.terminal-toolbar {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toolbar-chip {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.65);
+}
+
 .terminal-content {
     position: relative;
     z-index: 1;
-    padding: 28px 26px;
+    padding: 0;
     overflow: hidden;
-    color: rgba(208, 233, 255, 0.9);
+    color: rgba(214, 236, 255, 0.9);
     font-size: 0.95rem;
-    line-height: 1.85;
-    background: radial-gradient(circle at top, rgba(29, 185, 84, 0.08), transparent 55%);
-    isolation: isolate;
+    background: rgba(3, 6, 14, 0.7);
+    backdrop-filter: blur(20px);
 }
 
-.terminal-content::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(transparent 95%, rgba(255, 255, 255, 0.04) 95%),
-        linear-gradient(90deg, transparent 95%, rgba(255, 255, 255, 0.04) 95%);
-    background-size: 100% 22px, 22px 100%;
-    opacity: 0.2;
-    pointer-events: none;
-    z-index: 0;
+.terminal-lines {
+    display: grid;
+    grid-template-columns: 60px 1fr;
 }
 
 .terminal-line {
-    position: relative;
+    display: contents;
+}
+
+.line-number {
+    background: rgba(10, 16, 28, 0.9);
+    padding: 12px 18px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.45);
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.code-line {
+    padding: 12px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-family: var(--font-mono), 'Courier New', monospace;
     display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 6px 0;
-    min-height: 24px;
-    letter-spacing: 0.4px;
+    gap: 12px;
+    align-items: center;
+    min-height: 38px;
 }
 
-.terminal-line:last-child {
-    margin-bottom: 0;
-}
-
-.terminal-line::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 -2px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-}
-
-.terminal-prompt {
-    color: rgba(150, 205, 255, 0.9);
-    font-weight: 600;
-    flex-shrink: 0;
-    text-shadow: 0 0 8px rgba(29, 185, 84, 0.2);
-}
-
-.line-tag {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 2px 8px;
+.code-line .code-tag {
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.03);
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
 }
 
-.terminal-text {
+.code-line .code-text {
     flex: 1;
     color: rgba(214, 236, 255, 0.95);
-    word-break: break-word;
 }
 
-.terminal-line.typing .terminal-text::after {
+.terminal-line.typing .code-text::after {
     content: '';
     display: inline-block;
     width: 2px;
@@ -699,21 +728,21 @@ body.scrolling ::-webkit-scrollbar-thumb {
     animation: blink 1s steps(2, end) infinite;
 }
 
-.terminal-line.command .terminal-text {
+.code-line.command .code-text {
     color: rgba(120, 215, 255, 0.95);
 }
 
-.terminal-line.highlight .terminal-text {
-    color: rgba(29, 185, 84, 0.95);
-    font-weight: 600;
+.code-line.note .code-text {
+    color: rgba(184, 196, 255, 0.9);
 }
 
-.terminal-line.stack .terminal-text {
+.code-line.stack .code-text {
     color: rgba(255, 189, 104, 0.95);
 }
 
-.terminal-line.note .terminal-text {
-    color: rgba(184, 196, 255, 0.9);
+.code-line.highlight .code-text {
+    color: rgba(29, 185, 84, 0.95);
+    font-weight: 600;
 }
 
 @keyframes blink {

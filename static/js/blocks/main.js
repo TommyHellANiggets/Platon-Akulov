@@ -118,16 +118,16 @@ function initTerminal() {
     const terminal = document.getElementById('hero-terminal');
     if (!terminal) return;
 
-    const content = terminal.querySelector('.terminal-content');
+    const content = terminal.querySelector('.terminal-lines');
     if (!content) return;
     content.innerHTML = '';
 
     const terminalLines = [
-        { prompt: '$', text: 'Привет! Я Платон — fullstack разработчик.', type: 'command', tag: 'hello' },
-        { prompt: '$', text: 'Создаю современные веб-решения, которые помогают бизнесу расти.', type: 'note', tag: 'build' },
-        { prompt: '$', text: '50+ завершённых проектов: от лендингов до высоконагруженных платформ.', type: 'stack', tag: 'xp' },
-        { prompt: '$', text: 'Стек: Django, DRF, React, PostgreSQL, Celery, Docker.', type: 'stack', tag: 'stack' },
-        { prompt: '$', text: 'Связь → t.me/+zuZmNbiYp5djYzJi', type: 'highlight', tag: 'contact', pause: 1600 }
+        { number: 1, tag: 'hello', text: 'const intro = \"Привет! Я Платон — fullstack разработчик.\";', type: 'command' },
+        { number: 2, tag: 'build', text: 'const value = \"Создаю продукты, которые растят бизнес.\";', type: 'note' },
+        { number: 3, tag: 'xp', text: 'const projects = 50 + \" завершённых платформ\";', type: 'stack' },
+        { number: 4, tag: 'stack', text: 'const stack = [\"Django\", \"DRF\", \"React\", \"PostgreSQL\", \"Celery\", \"Docker\"];', type: 'stack' },
+        { number: 5, tag: 'contact', text: 'const contact = \"Telegram → t.me/+zuZmNbiYp5djYzJi\";', type: 'highlight', pause: 1600 }
     ];
 
     let currentLineIndex = 0;
@@ -137,28 +137,32 @@ function initTerminal() {
     }
 
     function typeLine(lineData) {
-        const line = document.createElement('div');
-        line.className = 'terminal-line' + (lineData.type ? ` ${lineData.type}` : '');
+        const row = document.createElement('div');
+        row.className = 'terminal-line' + (lineData.type ? ` ${lineData.type}` : '');
 
-        const prompt = document.createElement('span');
-        prompt.className = 'terminal-prompt';
-        prompt.textContent = lineData.prompt || '$';
-        line.appendChild(prompt);
+        const gutter = document.createElement('div');
+        gutter.className = 'line-number';
+        gutter.textContent = String(lineData.number || currentLineIndex).padStart(2, '0');
+
+        const code = document.createElement('div');
+        code.className = 'code-line' + (lineData.type ? ` ${lineData.type}` : '');
 
         if (lineData.tag) {
             const tag = document.createElement('span');
-            tag.className = 'line-tag';
+            tag.className = 'code-tag';
             tag.textContent = lineData.tag;
-            line.appendChild(tag);
+            code.appendChild(tag);
         }
 
         const textSpan = document.createElement('span');
-        textSpan.className = 'terminal-text';
-        line.appendChild(textSpan);
+        textSpan.className = 'code-text';
+        code.appendChild(textSpan);
 
-        content.appendChild(line);
+        row.appendChild(gutter);
+        row.appendChild(code);
+        content.appendChild(row);
         content.scrollTop = content.scrollHeight;
-        line.classList.add('typing');
+        row.classList.add('typing');
 
         let charIndex = 0;
 
@@ -168,7 +172,7 @@ function initTerminal() {
                 charIndex += 1;
                 schedule(typeNextChar, lineData.speed || 45 + Math.random() * 35);
             } else {
-                line.classList.remove('typing');
+                row.classList.remove('typing');
                 schedule(renderNextLine, lineData.pause || 900);
             }
         }

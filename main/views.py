@@ -215,6 +215,9 @@ def track_site_visit(request, statistics):
     if not request.session.session_key:
         request.session.save()
 
+    # сохраняем сессию минимум на неделю, чтобы повторные обновления не считались новыми визитами
+    request.session.set_expiry(60 * 60 * 24 * 7)
+
     session_key = request.session.session_key
     if not session_key:
         return

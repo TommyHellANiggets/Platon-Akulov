@@ -44,9 +44,9 @@
     --transition-slow: 0.5s ease;
     
     /* Typography */
-    --font-primary: 'Space Grotesk', sans-serif;
-    --font-secondary: 'Raleway', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
+    --font-primary: 'Onest', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-secondary: 'Manrope', 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', monospace;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-md: 1rem;

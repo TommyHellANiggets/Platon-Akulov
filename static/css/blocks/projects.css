@@ -3,13 +3,13 @@
     padding: 80px 0;
     background-color: transparent;
     position: relative;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 .projects-section .section-title {
     text-align: center;
     margin-bottom: 50px;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 /* Сетка проектов */
@@ -32,7 +32,7 @@
     margin-bottom: 30px;
     opacity: 0;
     transform: translateY(20px);
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 .project-card:hover {
@@ -92,7 +92,7 @@
     transform: translateY(20px);
     opacity: 0;
     transition: all 0.3s ease;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 .project-card:hover .project-link {
@@ -120,7 +120,7 @@
     font-weight: 500;
     margin-bottom: 8px;
     color: var(--heading-color);
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 .project-description {
@@ -128,7 +128,7 @@
     color: var(--text-light);
     margin-bottom: 15px;
     line-height: 1.5;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
     font-weight: 400;
 }
 
@@ -138,7 +138,7 @@
     margin-bottom: 12px;
     display: flex;
     align-items: center;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
     font-weight: 300;
 }
 
@@ -162,7 +162,7 @@
     padding: 4px 10px;
     border-radius: 20px;
     font-weight: 500;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 /* Кнопка Показать еще */
@@ -185,7 +185,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--font-mono), monospace;
 }
 
 #load-more:hover {
