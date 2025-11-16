@@ -165,16 +165,106 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* Центрируем элементы в центр контейнера */
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+}
+
+/* Позиционирование элементов по идеальному кругу */
+/* 6 элементов, каждый через 60 градусов */
+.cycle-item[data-index="0"] {
+    /* 0 градусов - верх */
+    transform: translateY(-180px);
+}
+
+.cycle-item[data-index="1"] {
+    /* 60 градусов - верх-справа */
+    transform: rotate(60deg) translateY(-180px) rotate(-60deg);
+}
+
+.cycle-item[data-index="2"] {
+    /* 120 градусов - низ-справа */
+    transform: rotate(120deg) translateY(-180px) rotate(-120deg);
+}
+
+.cycle-item[data-index="3"] {
+    /* 180 градусов - низ */
+    transform: translateY(180px);
+}
+
+.cycle-item[data-index="4"] {
+    /* 240 градусов - низ-слева */
+    transform: rotate(240deg) translateY(-180px) rotate(-240deg);
+}
+
+.cycle-item[data-index="5"] {
+    /* 300 градусов - верх-слева */
+    transform: rotate(300deg) translateY(-180px) rotate(-300deg);
 }
 
 .cycle-item span {
-    margin-top: 10px;
-    font-size: 14px;
+    position: absolute;
+    font-size: 12px;
     font-weight: 500;
     color: var(--text-color-secondary);
     transition: color 0.3s ease;
+    width: 100px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Позиционирование текста в зависимости от позиции элемента */
+.cycle-item[data-index="0"] span {
+    /* Верх - текст сверху */
+    top: -28px;
+}
+
+.cycle-item[data-index="1"] span {
+    /* Верх-справа - текст справа */
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: normal;
+    width: 70px;
+}
+
+.cycle-item[data-index="2"] span {
+    /* Низ-справа - текст справа */
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: normal;
+    width: 70px;
+}
+
+.cycle-item[data-index="3"] span {
+    /* Низ - текст снизу */
+    bottom: -28px;
+}
+
+.cycle-item[data-index="4"] span {
+    /* Низ-слева - текст слева */
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: normal;
+    width: 70px;
+}
+
+.cycle-item[data-index="5"] span {
+    /* Верх-слева - текст слева */
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: normal;
+    width: 70px;
 }
 
 .cycle-icon {
@@ -192,38 +282,7 @@
     border: 2px solid transparent;
 }
 
-/* Позиционирование элементов цикла */
-.cycle-item[data-index="0"] {
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-}
 
-.cycle-item[data-index="1"] {
-    top: 25%;
-    right: 5%;
-}
-
-.cycle-item[data-index="2"] {
-    top: 65%;
-    right: 5%;
-}
-
-.cycle-item[data-index="3"] {
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.cycle-item[data-index="4"] {
-    top: 65%;
-    left: 5%;
-}
-
-.cycle-item[data-index="5"] {
-    top: 25%;
-    left: 5%;
-}
 
 /* Активный элемент цикла */
 .cycle-item.active .cycle-icon {
@@ -345,8 +404,25 @@
     position: relative;
 }
 
-.stat-item:hover {
-    transform: translateY(-5px);
+.stat-item::before {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(100, 200, 255, 0.25) 0%, rgba(100, 200, 255, 0.08) 45%, transparent 75%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+    filter: blur(45px);
+    pointer-events: none;
+}
+
+.stat-item:hover::before {
+    opacity: 1;
 }
 
 .stat-value {
@@ -358,6 +434,28 @@
     background-clip: text;
     color: transparent;
     display: inline-block;
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    will-change: background-position;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-item.gradient-active .stat-value {
+    animation: gradientWave 3s ease-in-out infinite;
+}
+
+@keyframes gradientWave {
+    0% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 0% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
 }
 
 .plus-sign {
@@ -370,6 +468,14 @@
     position: relative;
     top: -5px;
     margin-left: 2px;
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    will-change: background-position;
+    display: inline-block;
+}
+
+.stat-item.gradient-active .plus-sign {
+    animation: gradientWave 3s ease-in-out infinite;
 }
 
 .stat-value span {
@@ -381,6 +487,8 @@
     font-size: 1rem;
     color: var(--text-color-secondary);
     font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
 
 /* Технологический стек */

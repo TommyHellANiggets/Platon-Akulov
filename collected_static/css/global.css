@@ -71,7 +71,7 @@
 }
 
 html, body {
-    height: 100%;
+    height: auto;
     width: 100%;
     font-family: var(--font-primary);
     font-size: var(--font-size-md);

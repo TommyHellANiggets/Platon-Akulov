@@ -1,11 +1,10 @@
-/**
+﻿/**
  * Header Component JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     initHeaderScroll();
     initActiveNavLink();
-    initThemeToggle();
     initLanguageSelector();
     initMobileMenu();
 });
@@ -17,19 +16,19 @@ function initHeaderScroll() {
     const header = document.querySelector('header');
     const headerContainer = header.querySelector('.container');
     
-    // Сохраняем исходную высоту контейнера
+    // РЎРѕС…СЂР°РЅСЏРµРј РёСЃС…РѕРґРЅСѓСЋ РІС‹СЃРѕС‚Сѓ РєРѕРЅС‚РµР№РЅРµСЂР°
     const originalHeight = headerContainer.offsetHeight;
     
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             // Scrolled down - make header more compact
             headerContainer.style.padding = '12px 24px';
-            // Фиксируем высоту, чтобы не было скачков
+            // Р¤РёРєСЃРёСЂСѓРµРј РІС‹СЃРѕС‚Сѓ, С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ СЃРєР°С‡РєРѕРІ
             headerContainer.style.height = originalHeight + 'px';
         } else {
             // At top - restore original padding
             headerContainer.style.padding = '16px 24px';
-            // Сбрасываем фиксированную высоту
+            // РЎР±СЂР°СЃС‹РІР°РµРј С„РёРєСЃРёСЂРѕРІР°РЅРЅСѓСЋ РІС‹СЃРѕС‚Сѓ
             headerContainer.style.height = 'auto';
         }
     });
@@ -68,87 +67,20 @@ function initActiveNavLink() {
 }
 
 /**
- * Initialize theme toggle functionality
- */
-function initThemeToggle() {
-    const themeToggles = document.querySelectorAll('.theme-toggle');
-    const sidebarThemeToggle = document.querySelector('.sidebar-theme-toggle .theme-toggle');
-    const headerThemeToggle = document.querySelector('.header-right .theme-toggle');
-    const body = document.body;
-    const htmlDocument = document.getElementById('html-document');
-    
-    console.log('Инициализация переключателя темы');
-    console.log('Найдено переключателей темы:', themeToggles.length);
-    console.log('Найден переключатель в сайдбаре:', !!sidebarThemeToggle);
-    console.log('Найден переключатель в хедере:', !!headerThemeToggle);
-    
-    // Load saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    console.log('Сохраненная тема:', savedTheme);
-    
-    if (savedTheme === 'light') {
-        body.classList.remove('dark-theme');
-        body.classList.add('light-theme');
-        themeToggles.forEach(toggle => toggle.classList.add('active'));
-        console.log('Применена светлая тема из localStorage');
-    } else {
-        body.classList.add('dark-theme');
-        body.classList.remove('light-theme');
-        themeToggles.forEach(toggle => toggle.classList.remove('active'));
-        console.log('Применена темная тема из localStorage');
-    }
-    
-    // Функция переключения темы
-    function toggleTheme() {
-        console.log('Переключение темы');
-        body.classList.toggle('light-theme');
-        body.classList.toggle('dark-theme');
-        const isLight = body.classList.contains('light-theme');
-        
-        // Save theme preference
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        
-        // Toggle active class on all theme toggles
-        themeToggles.forEach(t => t.classList.toggle('active', isLight));
-        
-        console.log('Тема переключена на:', isLight ? 'светлую' : 'темную');
-    }
-    
-    // Add click events to all theme toggles
-    if (headerThemeToggle) {
-        headerThemeToggle.addEventListener('click', function(e) {
-            console.log('Клик по переключателю темы в хедере');
-            e.preventDefault();
-            e.stopPropagation();
-            toggleTheme();
-        });
-    }
-    
-    if (sidebarThemeToggle) {
-        sidebarThemeToggle.addEventListener('click', function(e) {
-            console.log('Клик по переключателю темы в сайдбаре');
-            e.preventDefault();
-            e.stopPropagation();
-            toggleTheme();
-        });
-    }
-}
-
-/**
  * Initialize language selector dropdown
  */
 function initLanguageSelector() {
     const languageSelectors = document.querySelectorAll('.language-selector, .sidebar-language');
     
-    console.log('Инициализация селектора языка');
-    console.log('Найдено селекторов языка:', languageSelectors.length);
+    console.log('РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµР»РµРєС‚РѕСЂР° СЏР·С‹РєР°');
+    console.log('РќР°Р№РґРµРЅРѕ СЃРµР»РµРєС‚РѕСЂРѕРІ СЏР·С‹РєР°:', languageSelectors.length);
     
     languageSelectors.forEach(selector => {
         const currentLanguage = selector.querySelector('.current-language');
         const languageDropdown = selector.querySelector('.language-dropdown');
         const languageOptions = selector.querySelectorAll('.language-option');
         
-        console.log('Опции селектора:', selector.className, {
+        console.log('РћРїС†РёРё СЃРµР»РµРєС‚РѕСЂР°:', selector.className, {
             hasCurrentLanguage: !!currentLanguage,
             hasDropdown: !!languageDropdown,
             optionsCount: languageOptions.length
@@ -158,18 +90,18 @@ function initLanguageSelector() {
             currentLanguage.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Клик по переключателю языка:', selector.className);
+                console.log('РљР»РёРє РїРѕ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЋ СЏР·С‹РєР°:', selector.className);
                 
-                // Закрываем все другие селекторы
+                // Р—Р°РєСЂС‹РІР°РµРј РІСЃРµ РґСЂСѓРіРёРµ СЃРµР»РµРєС‚РѕСЂС‹
                 languageSelectors.forEach(s => {
                     if (s !== selector) {
                         s.classList.remove('active');
                     }
                 });
                 
-                // Переключаем текущий селектор
+                // РџРµСЂРµРєР»СЋС‡Р°РµРј С‚РµРєСѓС‰РёР№ СЃРµР»РµРєС‚РѕСЂ
                 selector.classList.toggle('active');
-                console.log('Состояние селектора после клика:', selector.classList.contains('active') ? 'открыт' : 'закрыт');
+                console.log('РЎРѕСЃС‚РѕСЏРЅРёРµ СЃРµР»РµРєС‚РѕСЂР° РїРѕСЃР»Рµ РєР»РёРєР°:', selector.classList.contains('active') ? 'РѕС‚РєСЂС‹С‚' : 'Р·Р°РєСЂС‹С‚');
             });
         }
         
@@ -178,11 +110,11 @@ function initLanguageSelector() {
             option.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Выбор языка');
+                console.log('Р’С‹Р±РѕСЂ СЏР·С‹РєР°');
                 
                 // Get selected language
                 const lang = this.getAttribute('data-lang');
-                console.log('Выбранный язык:', lang);
+                console.log('Р’С‹Р±СЂР°РЅРЅС‹Р№ СЏР·С‹Рє:', lang);
                 
                 // Update all language displays
                 const allCurrentFlags = document.querySelectorAll('.current-language .flag-icon');
@@ -224,10 +156,10 @@ function initLanguageSelector() {
 
 /**
  * Translate content based on data attributes
- * @param {string} lang - Language code (e.g., 'ru', 'uk')
+ * @param {string} lang - Language code (e.g., 'ru', 'en')
  */
 function translateContent(lang) {
-    console.log('Перевод контента на язык:', lang);
+    console.log('РџРµСЂРµРІРѕРґ РєРѕРЅС‚РµРЅС‚Р° РЅР° СЏР·С‹Рє:', lang);
     // Find all elements with translation data attributes
     const elementsToTranslate = document.querySelectorAll(`[data-${lang}]`);
     
@@ -248,14 +180,14 @@ function initMobileMenu() {
     const sidebarClose = document.querySelector('.sidebar-close');
     
     if (menuToggle && sidebar) {
-        // Отладочные сообщения
-        console.log('Меню и сайдбар найдены');
+        // РћС‚Р»Р°РґРѕС‡РЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ
+        console.log('РњРµРЅСЋ Рё СЃР°Р№РґР±Р°СЂ РЅР°Р№РґРµРЅС‹');
         
         // Open sidebar
         menuToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Клик по меню');
+            console.log('РљР»РёРє РїРѕ РјРµРЅСЋ');
             sidebar.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
         });
@@ -265,7 +197,7 @@ function initMobileMenu() {
             sidebarClose.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Закрытие сайдбара');
+                console.log('Р—Р°РєСЂС‹С‚РёРµ СЃР°Р№РґР±Р°СЂР°');
                 sidebar.classList.remove('active');
                 document.body.style.overflow = ''; // Re-enable scrolling
             });
@@ -276,7 +208,7 @@ function initMobileMenu() {
             if (sidebar.classList.contains('active') && 
                 !sidebar.contains(e.target) && 
                 e.target !== menuToggle) {
-                console.log('Клик вне сайдбара');
+                console.log('РљР»РёРє РІРЅРµ СЃР°Р№РґР±Р°СЂР°');
                 sidebar.classList.remove('active');
                 document.body.style.overflow = '';
             }
@@ -287,10 +219,42 @@ function initMobileMenu() {
             e.stopPropagation();
         });
     } else {
-        console.log('Элементы меню не найдены:', {
+        console.log('Р­Р»РµРјРµРЅС‚С‹ РјРµРЅСЋ РЅРµ РЅР°Р№РґРµРЅС‹:', {
             menuToggle: !!menuToggle,
             sidebar: !!sidebar,
             sidebarClose: !!sidebarClose
         });
     }
 }
+
+function initSmoothScroll() {
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const links = document.querySelectorAll('a[href^="#"], .logo');
+    const sidebar = document.querySelector('.sidebar');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (!href) return;
+            if (href === '#') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (sidebar) sidebar.classList.remove('active');
+                document.body.style.overflow = '';
+                return;
+            }
+            if (href.startsWith('#')) {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 10;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                    if (sidebar) sidebar.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    });
+}
+
+// Р¤СѓРЅРєС†РёСЏ РїР»Р°РІРЅРѕР№ РїСЂРѕРєСЂСѓС‚РєРё РїРµСЂРµРјРµС‰РµРЅР° РІ global.js

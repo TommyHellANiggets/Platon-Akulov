@@ -4,8 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Statistics, Testimonial, ContactMessage, Project
+from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
+from .models import Statistics, Testimonial, ContactMessage, Project, SiteVisit
 import json
 
 def index(request):
@@ -34,12 +35,17 @@ def index(request):
         print(f"Ошибка при получении статистики: {e}")
         statistics = None
     
+    track_site_visit(request, statistics)
+
+    view_count = statistics.views_count if statistics else 0
+
     context = {
         'projects': initial_projects,
         'total_projects': total_projects,
         'has_more': total_projects > per_page,
         'testimonials': testimonials,
         'statistics': statistics,
+        'view_count': view_count,
     }
     
     return render(request, 'main/index.html', context)
@@ -200,3 +206,36 @@ def load_more_projects(request):
         'projects': projects_data,
         'is_last_batch': is_last_batch
     })
+
+
+def track_site_visit(request, statistics):
+    if not statistics:
+        return
+
+    if not request.session.session_key:
+        request.session.save()
+
+    session_key = request.session.session_key
+    if not session_key:
+        return
+
+    defaults = {
+        'ip_address': get_client_ip(request),
+        'user_agent': (request.META.get('HTTP_USER_AGENT') or '')[:255],
+    }
+
+    _, created = SiteVisit.objects.get_or_create(
+        session_key=session_key,
+        defaults=defaults,
+    )
+
+    if created:
+        Statistics.objects.filter(pk=statistics.pk).update(views_count=F('views_count') + 1)
+        statistics.refresh_from_db()
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        return x_forwarded_for.split(',')[0].strip()
+    return request.META.get('REMOTE_ADDR')

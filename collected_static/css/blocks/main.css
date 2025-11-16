@@ -38,6 +38,39 @@
     font-family: 'Pacifico', cursive;
 }
 
+.hero-title {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hero-title .typed-segment {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    min-height: 1.2em;
+    letter-spacing: 0.8px;
+}
+
+.hero-title .typed-segment:not(.accent-text) {
+    color: var(--text-color);
+}
+
+.hero-title .typed-segment.is-typing::after {
+    content: '';
+    width: 2px;
+    height: 1.05em;
+    background: currentColor;
+    margin-left: 6px;
+    animation: blink 1s steps(2, end) infinite;
+}
+
+.hero-title .accent-text {
+    font-size: 1.05em;
+}
+
 .hero h1 .accent-text {
     position: relative;
     display: inline-block;
@@ -430,4 +463,301 @@ body.light-theme .floating-element {
 
 body.light-theme .scroll-indicator {
     color: var(--light-text-color-secondary);
+}
+
+/* Главная секция */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Улучшенный скроллинг */
+html {
+    overflow-y: overlay; /* Скроллбар поверх содержимого (только webkit) */
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    /* Плавность скролла */
+    scroll-behavior: smooth;
+    scroll-padding-top: 70px; /* Учитываем высоту фиксированного хедера */
+}
+
+/* Добавляем эффект свечения к скроллбару при активном скроллинге */
+body.scrolling ::-webkit-scrollbar-thumb {
+    box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.7);
+}
+
+/* Стили для терминала в hero */
+.hero-terminal {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    background: linear-gradient(135deg, rgba(5, 8, 15, 0.95), rgba(7, 12, 25, 0.95));
+    border: 1px solid rgba(100, 200, 255, 0.35);
+    border-radius: 18px;
+    box-shadow:
+        0 25px 80px rgba(4, 0, 40, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    margin: 3rem auto 2rem;
+    backdrop-filter: blur(30px);
+}
+
+.hero-terminal::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(115deg, rgba(29, 185, 84, 0.25), rgba(25, 118, 210, 0.2));
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.terminal-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 24px;
+    background: linear-gradient(120deg, rgba(12, 20, 35, 0.95), rgba(20, 35, 65, 0.85));
+    border-bottom: 1px solid rgba(100, 200, 255, 0.2);
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+}
+
+.terminal-dot:nth-child(1) {
+    background: #ff5f57;
+}
+
+.terminal-dot:nth-child(2) {
+    background: #ffbd2e;
+}
+
+.terminal-dot:nth-child(3) {
+    background: #28c940;
+}
+
+.terminal-title {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+    letter-spacing: 0.8px;
+    color: rgba(175, 206, 255, 0.85);
+}
+
+.terminal-path {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.terminal-path::before {
+    content: '▸';
+    font-size: 0.8em;
+    color: rgba(29, 185, 84, 0.7);
+}
+
+.terminal-path.muted {
+    color: rgba(175, 206, 255, 0.55);
+}
+
+.terminal-status {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.08);
+}
+
+.status-badge.online {
+    border-color: rgba(29, 185, 84, 0.6);
+    color: rgba(29, 185, 84, 0.95);
+    box-shadow: inset 0 0 20px rgba(29, 185, 84, 0.2);
+}
+
+.status-badge.ping {
+    border-color: rgba(100, 200, 255, 0.4);
+    color: rgba(100, 200, 255, 0.85);
+}
+
+.terminal-content {
+    position: relative;
+    z-index: 1;
+    padding: 28px 26px;
+    overflow: hidden;
+    color: rgba(208, 233, 255, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.85;
+    background: radial-gradient(circle at top, rgba(29, 185, 84, 0.08), transparent 55%);
+    isolation: isolate;
+}
+
+.terminal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(transparent 95%, rgba(255, 255, 255, 0.04) 95%),
+        linear-gradient(90deg, transparent 95%, rgba(255, 255, 255, 0.04) 95%);
+    background-size: 100% 22px, 22px 100%;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.terminal-line {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 6px 0;
+    min-height: 24px;
+    letter-spacing: 0.4px;
+}
+
+.terminal-line:last-child {
+    margin-bottom: 0;
+}
+
+.terminal-line::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -2px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.terminal-prompt {
+    color: rgba(150, 205, 255, 0.9);
+    font-weight: 600;
+    flex-shrink: 0;
+    text-shadow: 0 0 8px rgba(29, 185, 84, 0.2);
+}
+
+.line-tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.terminal-text {
+    flex: 1;
+    color: rgba(214, 236, 255, 0.95);
+    word-break: break-word;
+}
+
+.terminal-line.typing .terminal-text::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: rgba(29, 185, 84, 0.8);
+    margin-left: 3px;
+    animation: blink 1s steps(2, end) infinite;
+}
+
+.terminal-line.command .terminal-text {
+    color: rgba(120, 215, 255, 0.95);
+}
+
+.terminal-line.highlight .terminal-text {
+    color: rgba(29, 185, 84, 0.95);
+    font-weight: 600;
+}
+
+.terminal-line.stack .terminal-text {
+    color: rgba(255, 189, 104, 0.95);
+}
+
+.terminal-line.note .terminal-text {
+    color: rgba(184, 196, 255, 0.9);
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero-terminal {
+        max-width: 600px;
+        font-size: 12px;
+        margin: 2.5rem auto 1.5rem;
+    }
+    
+    .terminal-line {
+        min-height: 22px;
+        margin-bottom: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-terminal {
+        max-width: 100%;
+        margin: 1.5rem auto 1rem;
+        font-size: 11px;
+        border-radius: 10px;
+    }
+    
+    .terminal-header {
+        padding: 12px 14px;
+    }
+    
+    .terminal-content {
+        padding: 16px 14px;
+        font-size: 11px;
+        line-height: 1.7;
+    }
+    
+    .terminal-line {
+        min-height: 20px;
+        margin-bottom: 5px;
+    }
 }

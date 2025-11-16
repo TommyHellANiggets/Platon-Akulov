@@ -1,12 +1,12 @@
 /* Стили для фоновой анимации */
 
-/* Устанавливаем глубокий черный фон с эффектом космоса */
+/* Устанавливаем черный фон для всего сайта */
 body {
-    background-color: #000000;
+    background-color: transparent;
     position: relative;
 }
 
-/* Добавляем очень мягкий свет поверх глубоко черного */
+/* Добавляем полупрозрачную пленку между анимацией и контентом */
 body::after {
     content: '';
     position: fixed;
@@ -14,12 +14,9 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background:
-        radial-gradient(circle at 22% 25%, rgba(52, 245, 198, 0.05), transparent 45%),
-        radial-gradient(circle at 80% 12%, rgba(74, 159, 255, 0.05), transparent 50%),
-        radial-gradient(circle at 68% 80%, rgba(48, 140, 255, 0.05), transparent 60%);
-    backdrop-filter: blur(18px); /* едва заметное свечение */
-    -webkit-backdrop-filter: blur(18px); /* Для Safari */
+    background-color: rgba(0, 0, 0, 0.2); /* Полупрозрачный черный фон */
+    backdrop-filter: blur(5px); /* Добавляем блюр */
+    -webkit-backdrop-filter: blur(5px); /* Для Safari */
     z-index: 0;
     pointer-events: none;
 }
@@ -153,7 +150,7 @@ header, main, footer, .sidebar {
     position: fixed;
     border-radius: 50%;
     filter: blur(60px);
-    opacity: 0.03; /* Едва заметные пятна света */
+    opacity: 0.05; /* Уменьшил прозрачность */
     z-index: -1;
     pointer-events: none;
     animation: pulse 6s infinite alternate ease-in-out;
@@ -234,3 +231,4 @@ header, main, footer, .sidebar {
     content: '✕';
     display: block;
 }
+
