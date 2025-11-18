@@ -894,88 +894,43 @@
                 </div>
             </div>
         </section>
-        <section id="contact" class="contact">
-            <div class="cosmic-grid"></div>
+                        <section id="contact" class="contact simple-contact">
             <div class="container">
-                <div class="contact-shell">
-                    <div class="section-header">
-                        <div class="galaxy-line"></div>
-                        <h2 class="glitch-text" data-ru="Начнём космическое путешествие?" data-uk="Ready for a cosmic journey?">Начнём космическое путешествие?</h2>
-                        <p data-ru="Напиши, и мы создадим что-то невероятное вместе" data-uk="Write to me, and let's create something extraordinary">Напиши, и мы создадим что-то невероятное вместе</p>
-                    </div>
-
-                    <div class="contact-grid">
-                        <div class="contact-card form-card">
-                            <div class="card-glow"></div>
-                            <form id="contactForm" class="contact-form">
-                                {% csrf_token %}
-                                <div class="form-inputs">
-                                    <div class="form-group">
-                                        <input type="text" id="name" name="name" required placeholder=" ">
-                                        <label for="name" data-ru="Твоё имя" data-uk="Your name">Твоё имя</label>
-                                        <div class="input-line"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" id="email" name="email" required placeholder=" ">
-                                        <label for="email" data-ru="Email" data-uk="Email">Email</label>
-                                        <div class="input-line"></div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group full-width">
-                                    <textarea id="message" name="message" required placeholder=" "></textarea>
-                                    <label for="message" data-ru="Сообщение" data-uk="Message">Сообщение</label>
-                                    <div class="input-line"></div>
-                                </div>
-
-                                <button type="submit" class="send-button cosmic-btn">
-                                    <span class="btn-text" data-ru="Отправить" data-uk="Send">Отправить</span>
-                                    <div class="btn-glow"></div>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="contact-card info-card">
-                            <div class="card-glow"></div>
-                            <div class="info-section">
-                                <div class="status-box">
-                                    <div class="pulse-dot"></div>
-                                    <div>
-                                        <p class="status-label" data-ru="Статус" data-uk="Status">Статус</p>
-                                        <p class="status-value" data-ru="Открыт к проектам" data-uk="Open for projects">Открыт к проектам</p>
-                                    </div>
-                                </div>
-
-                                <div class="divider"></div>
-
-                                <div class="channels">
-                                    <p class="channels-label" data-ru="Свяжись:" data-uk="Let's talk:">Свяжись:</p>
-                                    <div class="channel-links">
-                                        <a href="https://t.me/+zuZmNbiYp5djYzJi" target="_blank" class="channel-btn telegram-btn">
-                                            <i class="fab fa-telegram-plane"></i>
-                                        </a>
-                                        <a href="https://github.com/TommyHellANiggets" target="_blank" class="channel-btn github-btn">
-                                            <i class="fab fa-github"></i>
-                                        </a>
-                                        <a href="mailto:platonakulov@outlook.com" class="channel-btn email-btn">
-                                            <i class="fas fa-envelope"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="divider"></div>
-
-                                <div class="specs">
-                                    <div class="spec-item">
-                                        <span class="spec-icon">📍</span>
-                                        <span class="spec-text" data-ru="Тверь, Россия" data-uk="Tver, Russia">Тверь, Россия</span>
-                                    </div>
-                                    <div class="spec-item">
-                                        <span class="spec-icon">⚡</span>
-                                        <span class="spec-text">Fullstack • React • Django</span>
-                                    </div>
+                <div class="simple-shell">
+                    <div class="simple-grid">
+                        <div class="simple-intro">
+                            <p class="intro-tag" data-ru="Запрос на проект" data-uk="Project inquiry">Запрос на проект</p>
+                            <h2 class="intro-title" data-ru="Опишите задачу в трёх строках" data-uk="Describe the project in three lines">Опишите задачу в трёх строках</h2>
+                            <p class="intro-text" data-ru="Напишите что запускаем, когда нужен результат и какой бюджет. Отвечу в рабочий день с конкретным планом." data-uk="Tell me what we build, when you need it, and the budget range — I reply the same business day.">Напишите что запускаем, когда нужен результат и какой бюджет. Отвечу в рабочий день с конкретным планом.</p>
+                            <div class="intro-steps">
+                                <p data-ru="В сообщении обязательно:" data-uk="Include in your message:">В сообщении обязательно:</p>
+                                <div class="steps-list">
+                                    <span data-ru="1. Продукт / функция и цель" data-uk="1. Product or feature goal">1. Продукт / функция и цель</span>
+                                    <span data-ru="2. Срок или дедлайн" data-uk="2. Deadline or launch window">2. Срок или дедлайн</span>
+                                    <span data-ru="3. Бюджет или формат сотрудничества" data-uk="3. Budget or engagement format">3. Бюджет или формат сотрудничества</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="simple-form">
+                            <form id="leadForm" class="lead-form">
+                                {% csrf_token %}
+                                <div class="lead-field">
+                                    <label for="leadName" data-ru="Имя" data-uk="Name">Имя</label>
+                                    <input type="text" id="leadName" name="name" placeholder="Имя" required>
+                                </div>
+                                <div class="lead-field">
+                                    <label for="leadEmail" data-ru="Рабочий email" data-uk="Work email">Рабочий email</label>
+                                    <input type="email" id="leadEmail" name="email" placeholder="email@company.com" required>
+                                </div>
+                                <div class="lead-field">
+                                    <label for="leadMessage" data-ru="Что нужно сделать" data-uk="What we should build">Что нужно сделать</label>
+                                    <textarea id="leadMessage" name="message" placeholder="Коротко опишите продукт, сроки и желаемый результат" required></textarea>
+                                </div>
+                                <div class="lead-actions">
+                                    <button type="submit" class="lead-button" data-ru="Отправить предложение" data-uk="Request a call">Отправить предложение</button>
+                                    <p id="leadStatus" class="lead-status" aria-live="polite"></p>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -983,38 +938,21 @@
         </section>
     </main>
 
-        <footer>
+    <footer class="site-footer minimal-footer">
         <div class="container">
-            <div class="footer-shell">
-                <div class="footer-bar">
-                    <div class="footer-brand">
-                        <a href="#home" class="logo" data-ru="Портфолио" data-uk="Portfolio">Портфолио</a>
-                        <span data-ru="Product / Fullstack" data-uk="Product / Fullstack">Product / Fullstack</span>
-                    </div>
-                    <nav class="footer-nav">
-                        <a href="#home" data-ru="Главная" data-uk="Home">Главная</a>
-                        <a href="#about" data-ru="Обо мне" data-uk="About me">Обо мне</a>
-                        <a href="#projects" data-ru="Проекты" data-uk="Projects">Проекты</a>
-                        <a href="#testimonials" data-ru="Отзывы" data-uk="Testimonials">Отзывы</a>
-                        <a href="#contact" data-ru="Контакты" data-uk="Contact">Контакты</a>
-                    </nav>
-                    <div class="footer-social">
-                        <a href="https://github.com/TommyHellANiggets" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://t.me/+zuZmNbiYp5djYzJi" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://kwork.ru/user/tommyloveallniggets" target="_blank" title="Kwork"><i class="fas fa-briefcase"></i></a>
-                    </div>
+            <div class="footer-minimal-row">
+                <div class="footer-minimal-brand">
+                    <a href="#home" data-ru="Платон" data-uk="Platon">Платон</a>
+                    <span data-ru="Fullstack" data-uk="Fullstack">Fullstack</span>
                 </div>
-                <div class="footer-meta">
-                    <div class="visit-counter">
-                        <div class="counter-icon">
-                            <i class="fas fa-signal"></i>
-                        </div>
-                        <div class="counter-data">
-                            <span data-ru="Уникальных посетителей" data-uk="Unique visitors">Уникальных посетителей</span>
-                            <strong>{{ view_count|default:0 }}</strong>
-                        </div>
-                    </div>
-                    <div class="footer-note" data-ru="Всегда открыт к новым проектам" data-uk="Open for new projects">Всегда открыт к новым проектам</div>
+                <div class="footer-minimal-contact">
+                    <a href="mailto:platonakulov@outlook.com">platonakulov@outlook.com</a>
+                    <a href="https://t.me/+zuZmNbiYp5djYzJi" target="_blank">Telegram</a>
+                    <a href="https://github.com/TommyHellANiggets" target="_blank">GitHub</a>
+                </div>
+                <div class="footer-minimal-meta">
+                    <span>{{ view_count|default:0 }} views</span>
+                    <span>© {% now "Y" %}</span>
                 </div>
             </div>
         </div>
@@ -1040,3 +978,6 @@
     <!-- <script src="{% static 'js/blocks/background-animation.js' %}"></script> -->
 </body>
 </html> 
+
+
+
