@@ -123,74 +123,12 @@ function initTerminal() {
     content.innerHTML = '';
 
     const terminalLines = [
-        { number: 1, tag: 'hello', text: 'const intro = \"Привет! Я Платон — fullstack разработчик.\";', type: 'command' },
-        { number: 2, tag: 'build', text: 'const value = \"Создаю продукты, которые растят бизнес.\";', type: 'note' },
-        { number: 3, tag: 'xp', text: 'const projects = 50 + \" завершённых платформ\";', type: 'stack' },
-        { number: 4, tag: 'stack', text: 'const stack = [\"Django\", \"DRF\", \"React\", \"PostgreSQL\", \"Celery\", \"Docker\"];', type: 'stack' },
-        { number: 5, tag: 'contact', text: 'const contact = \"Telegram → t.me/+zuZmNbiYp5djYzJi\";', type: 'highlight', pause: 1600 }
+        { number: 1, text: 'Привет! Я Платон — fullstack разработчик.', type: 'command' },
+        { number: 2, text: 'Создаю продукты, которые растят бизнес.', type: 'note' },
+        { number: 3, text: '50+ завершённых проектов: от MVP до высоконагруженных платформ.', type: 'stack' },
+        { number: 4, text: 'Стек: Django, DRF, React, PostgreSQL, Celery, Docker.', type: 'stack' },
+        { number: 5, text: 'Связаться → t.me/+zuZmNbiYp5djYzJi', type: 'highlight', pause: 1600 }
     ];
-
-    let currentLineIndex = 0;
-
-    function schedule(callback, delay) {
-        return window.setTimeout(callback, delay);
-    }
-
-    function typeLine(lineData) {
-        const row = document.createElement('div');
-        row.className = 'terminal-line' + (lineData.type ? ` ${lineData.type}` : '');
-
-        const gutter = document.createElement('div');
-        gutter.className = 'line-number';
-        gutter.textContent = String(lineData.number || currentLineIndex).padStart(2, '0');
-
-        const code = document.createElement('div');
-        code.className = 'code-line' + (lineData.type ? ` ${lineData.type}` : '');
-
-        if (lineData.tag) {
-            const tag = document.createElement('span');
-            tag.className = 'code-tag';
-            tag.textContent = lineData.tag;
-            code.appendChild(tag);
-        }
-
-        const textSpan = document.createElement('span');
-        textSpan.className = 'code-text';
-        code.appendChild(textSpan);
-
-        row.appendChild(gutter);
-        row.appendChild(code);
-        content.appendChild(row);
-        content.scrollTop = content.scrollHeight;
-        row.classList.add('typing');
-
-        let charIndex = 0;
-
-        function typeNextChar() {
-            if (charIndex < lineData.text.length) {
-                textSpan.textContent += lineData.text.charAt(charIndex);
-                charIndex += 1;
-                schedule(typeNextChar, lineData.speed || 45 + Math.random() * 35);
-            } else {
-                row.classList.remove('typing');
-                schedule(renderNextLine, lineData.pause || 900);
-            }
-        }
-
-        schedule(typeNextChar, lineData.initialDelay || 0);
-    }
-
-    function renderNextLine() {
-        if (currentLineIndex >= terminalLines.length) {
-            schedule(function() {
-                content.innerHTML = '';
-                currentLineIndex = 0;
-                renderNextLine();
-            }, 3500);
-            return;
-        }
-
-        const lineData = terminalLines[currentLineIndex];
         currentLineIndex += 1;
         typeLine(lineData);
     }

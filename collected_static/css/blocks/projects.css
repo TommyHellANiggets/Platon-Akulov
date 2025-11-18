@@ -1,6 +1,6 @@
 /* Стили для секции проектов */
 .projects-section {
-    padding: 80px 0;
+    padding-top: 80px;
     background-color: var(--bg-color);
     position: relative;
     font-family: 'Geist Mono', monospace;
@@ -249,7 +249,7 @@
     }
     
     .projects-section {
-        padding: 60px 0;
+        padding-top: 60px;
     }
     
     .project-image {

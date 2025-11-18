@@ -24,6 +24,36 @@
     <link rel="stylesheet" href="{% static 'css/blocks/background-animation.css' %}">
 </head>
 <body class="dark-theme">
+    <div class="language-splash" id="languageSplash">
+        <div class="language-title">
+            <p>Выберите язык</p>
+            <small>Choose the language</small>
+        </div>
+        <div class="language-panel language-panel--ru" data-lang="ru">
+            <svg class="flag-icon" viewBox="0 0 90 60" role="img" aria-label="Russian flag">
+                <rect width="90" height="20" y="0" fill="#ffffff"/>
+                <rect width="90" height="20" y="20" fill="#005bbb"/>
+                <rect width="90" height="20" y="40" fill="#d52b1e"/>
+            </svg>
+            <span>Русский</span>
+        </div>
+        <div class="language-divider"></div>
+        <div class="language-panel language-panel--en" data-lang="en">
+            <svg class="flag-icon" viewBox="0 0 90 60" role="img" aria-label="British flag">
+                <rect width="90" height="60" fill="#012169"/>
+                <path d="M0 0 L90 60 M90 0 L0 60" stroke="#fff" stroke-width="12"/>
+                <path d="M0 0 L90 60 M90 0 L0 60" stroke="#cf142b" stroke-width="8"/>
+                <path d="M45 0 L45 60 M0 30 L90 30" stroke="#fff" stroke-width="12"/>
+                <path d="M45 0 L45 60 M0 30 L90 30" stroke="#cf142b" stroke-width="8"/>
+            </svg>
+            <span>English</span>
+        </div>
+        <div class="splash-loader" id="splashLoader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+        </div>
+    </div>
     <!-- Добавляем градиентные блобы как часть анимированного фона -->
     <div class="gradient-blob blob-1"></div>
     <div class="gradient-blob blob-2"></div>
@@ -147,10 +177,6 @@
                                     <span class="terminal-dot"></span>
                                     <span class="terminal-dot"></span>
                                     <span class="terminal-dot"></span>
-                                </div>
-                                <div class="terminal-title">
-                                    <span class="terminal-path">~/studio/platon</span>
-                                    <span class="terminal-path muted">stack@prod</span>
                                 </div>
                                 <div class="terminal-status">
                                     <span class="status-badge online">online</span>
@@ -869,96 +895,85 @@
             </div>
         </section>
         <section id="contact" class="contact">
+            <div class="cosmic-grid"></div>
             <div class="container">
                 <div class="contact-shell">
-                    <div class="contact-head">
-                        <span class="contact-eyebrow" data-ru="Связаться" data-uk="Get in touch">Связаться</span>
-                        <h2 data-ru="Создаю цифровые продукты, которые двигают бизнес" data-uk="I build digital products that move business forward">Создаю цифровые продукты, которые двигают бизнес</h2>
-                        <p data-ru="Расскажите об идее или текущем проекте — соберу решение под задачу, помогу со стратегией, дизайном и разработкой." data-uk="Tell me about your idea or current product — I'll shape the tech strategy, design, and delivery.">Расскажите об идее или текущем проекте — соберу решение под задачу, помогу со стратегией, дизайном и разработкой.</p>
-                        <div class="contact-badges">
-                            <span class="contact-badge primary" data-ru="Ответ в течение 1 часа" data-uk="Reply within 1 hour">Ответ в течение 1 часа</span>
-                            <span class="contact-badge" data-ru="Fullstack · Django · React" data-uk="Fullstack · Django · React">Fullstack · Django · React</span>
-                            <span class="contact-badge" data-ru="Проекты worldwide" data-uk="Projects worldwide">Проекты worldwide</span>
-                        </div>
+                    <div class="section-header">
+                        <div class="galaxy-line"></div>
+                        <h2 class="glitch-text" data-ru="Начнём космическое путешествие?" data-uk="Ready for a cosmic journey?">Начнём космическое путешествие?</h2>
+                        <p data-ru="Напиши, и мы создадим что-то невероятное вместе" data-uk="Write to me, and let's create something extraordinary">Напиши, и мы создадим что-то невероятное вместе</p>
                     </div>
 
                     <div class="contact-grid">
-                        <div class="contact-column">
-                            <div class="contact-panel form-panel">
-                                <div class="panel-header">
-                                    <div>
-                                        <p data-ru="Напишите мне" data-uk="Drop me a line">Напишите мне</p>
-                                        <span data-ru="Отвечаю лично и подробно, без менеджеров" data-uk="I respond personally with a detailed plan">Отвечаю лично и подробно, без менеджеров</span>
+                        <div class="contact-card form-card">
+                            <div class="card-glow"></div>
+                            <form id="contactForm" class="contact-form">
+                                {% csrf_token %}
+                                <div class="form-inputs">
+                                    <div class="form-group">
+                                        <input type="text" id="name" name="name" required placeholder=" ">
+                                        <label for="name" data-ru="Твоё имя" data-uk="Your name">Твоё имя</label>
+                                        <div class="input-line"></div>
                                     </div>
-                                    <div class="panel-status">
-                                        <span class="status-dot online"></span>
-                                        <span data-ru="Online" data-uk="Online">Online</span>
+                                    <div class="form-group">
+                                        <input type="email" id="email" name="email" required placeholder=" ">
+                                        <label for="email" data-ru="Email" data-uk="Email">Email</label>
+                                        <div class="input-line"></div>
                                     </div>
                                 </div>
 
-                                <form id="contactForm">
-                                    {% csrf_token %}
-                                    <div class="form-grid">
-                                    <div class="form-field">
-                                        <input type="text" id="name" name="name" required autocomplete="name">
-                                        <label for="name" data-ru="Имя" data-uk="Name">Имя</label>
-                                    </div>
-                                    <div class="form-field">
-                                        <input type="email" id="email" name="email" required autocomplete="email">
-                                        <label for="email" data-ru="Email" data-uk="Email">Email</label>
-                                    </div>
-                                    </div>
+                                <div class="form-group full-width">
+                                    <textarea id="message" name="message" required placeholder=" "></textarea>
+                                    <label for="message" data-ru="Сообщение" data-uk="Message">Сообщение</label>
+                                    <div class="input-line"></div>
+                                </div>
 
-                                    <div class="form-field">
-                                        <textarea id="message" name="message" required></textarea>
-                                        <label for="message" data-ru="Расскажите о задаче" data-uk="Tell me about your idea">Расскажите о задаче</label>
-                                    </div>
-
-                                    <div class="form-footer">
-                                        <div class="form-hint" data-ru="Среднее время ответа — 20 минут" data-uk="Average response time — 20 minutes">Среднее время ответа — 20 минут</div>
-                                        <button type="submit" class="submit-btn" data-ru="Отправить" data-uk="Send">
-                                            <span>Отправить</span>
-                                            <i class="fas fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                                <button type="submit" class="send-button cosmic-btn">
+                                    <span class="btn-text" data-ru="Отправить" data-uk="Send">Отправить</span>
+                                    <div class="btn-glow"></div>
+                                </button>
+                            </form>
                         </div>
 
-                        <div class="contact-column">
-                            <div class="contact-panel info-panel">
-                                <div class="info-grid">
-                                    <div class="info-card">
-                                        <span class="label" data-ru="Email" data-uk="Email">Email</span>
-                                        <a href="mailto:platonakulov@outlook.com">platonakulov@outlook.com</a>
-                                    </div>
-                                    <div class="info-card">
-                                        <span class="label" data-ru="Локация" data-uk="Location">Локация</span>
-                                        <p data-ru="Тверь · работаю удалённо worldwide" data-uk="Tver · Remote worldwide">Тверь · работаю удалённо worldwide</p>
-                                    </div>
-                                    <div class="info-card">
-                                        <span class="label" data-ru="Время" data-uk="Timing">Время</span>
-                                        <p data-ru="Пн-Сб, 10:00–20:00 MSK" data-uk="Mon-Sat, 10:00–20:00 MSK">Пн-Сб, 10:00–20:00 MSK</p>
-                                    </div>
-                                    <div class="info-card">
-                                        <span class="label" data-ru="Фокус" data-uk="Focus">Фокус</span>
-                                        <p data-ru="CRM · SaaS · сложные интерфейсы" data-uk="CRM · SaaS · complex interfaces">CRM · SaaS · сложные интерфейсы</p>
+                        <div class="contact-card info-card">
+                            <div class="card-glow"></div>
+                            <div class="info-section">
+                                <div class="status-box">
+                                    <div class="pulse-dot"></div>
+                                    <div>
+                                        <p class="status-label" data-ru="Статус" data-uk="Status">Статус</p>
+                                        <p class="status-value" data-ru="Открыт к проектам" data-uk="Open for projects">Открыт к проектам</p>
                                     </div>
                                 </div>
 
-                                <div class="contact-actions">
-                                    <a href="https://t.me/+zuZmNbiYp5djYzJi" target="_blank" class="contact-chip primary">
-                                        <i class="fab fa-telegram-plane"></i>
-                                        <span>Telegram</span>
-                                    </a>
-                                    <a href="https://github.com/TommyHellANiggets" target="_blank" class="contact-chip">
-                                        <i class="fab fa-github"></i>
-                                        <span>GitHub</span>
-                                    </a>
-                                    <a href="mailto:platonakulov@outlook.com" class="contact-chip">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Email</span>
-                                    </a>
+                                <div class="divider"></div>
+
+                                <div class="channels">
+                                    <p class="channels-label" data-ru="Свяжись:" data-uk="Let's talk:">Свяжись:</p>
+                                    <div class="channel-links">
+                                        <a href="https://t.me/+zuZmNbiYp5djYzJi" target="_blank" class="channel-btn telegram-btn">
+                                            <i class="fab fa-telegram-plane"></i>
+                                        </a>
+                                        <a href="https://github.com/TommyHellANiggets" target="_blank" class="channel-btn github-btn">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                        <a href="mailto:platonakulov@outlook.com" class="channel-btn email-btn">
+                                            <i class="fas fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <span class="spec-icon">📍</span>
+                                        <span class="spec-text" data-ru="Тверь, Россия" data-uk="Tver, Russia">Тверь, Россия</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <span class="spec-icon">⚡</span>
+                                        <span class="spec-text">Fullstack • React • Django</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1018,6 +1033,7 @@
     <script src="{% static 'js/blocks/reviews.js' %}"></script>
     <script src="{% static 'js/blocks/contact.js' %}"></script>
     <script src="{% static 'js/blocks/statistics.js' %}"></script>
+    <script src="{% static 'js/blocks/language-splash.js' %}"></script>
     <!-- Добавляем основной скрипт -->
     <script src="{% static 'js/script.js' %}"></script>
     <!-- Подключаем наш файл анимации перед закрывающим тегом body -->

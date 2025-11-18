@@ -465,11 +465,11 @@ img, video {
 }
 
 /* Светлая тема для бегущей строки */
-.light-theme .marquee-section::before {
+/* .light-theme .marquee-section::before {
     background: 
         radial-gradient(circle at 25% 25%, rgba(29, 185, 84, 0.03) 0%, transparent 50%),
         radial-gradient(circle at 75% 75%, rgba(24, 119, 242, 0.03) 0%, transparent 50%);
-}
+} */
 
 .light-theme .marquee-container {
     background: rgba(248, 248, 248, 0.7);

@@ -6,64 +6,26 @@ function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
 
-    const submitBtn = contactForm.querySelector('.submit-btn');
+    const submitBtn = contactForm.querySelector('.cosmic-btn');
+    const inputs = contactForm.querySelectorAll('input, textarea');
 
+    // Form submission
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        
         if (submitBtn) {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
         }
 
         setTimeout(() => {
             contactForm.reset();
-            resetFloatingLabels(contactForm);
             showNotification('Сообщение отправлено! Вернусь в течение пары часов.', 'success');
             if (submitBtn) {
-                submitBtn.innerHTML = '<span>Отправить</span><i class="fas fa-arrow-right"></i>';
+                submitBtn.style.opacity = '1';
                 submitBtn.disabled = false;
             }
         }, 1500);
-    });
-
-    const inputs = contactForm.querySelectorAll('input, textarea');
-    inputs.forEach(field => {
-        if (field.value.trim() !== '') {
-            field.classList.add('has-content');
-            field.parentElement.classList.add('focused');
-        }
-
-        field.addEventListener('focus', () => {
-            field.parentElement.classList.add('focused');
-        });
-
-        field.addEventListener('blur', () => {
-            if (field.value.trim() === '') {
-                field.parentElement.classList.remove('focused');
-                field.classList.remove('has-content');
-            } else {
-                field.classList.add('has-content');
-            }
-        });
-
-        field.addEventListener('input', () => {
-            if (field.value.trim() !== '') {
-                field.classList.add('has-content');
-            } else {
-                field.classList.remove('has-content');
-                field.parentElement.classList.remove('focused');
-            }
-        });
-    });
-}
-
-function resetFloatingLabels(form) {
-    form.querySelectorAll('.form-field').forEach(wrapper => {
-        wrapper.classList.remove('focused');
-        const input = wrapper.querySelector('input, textarea');
-        if (input) {
-            input.classList.remove('has-content');
-        }
     });
 }
 

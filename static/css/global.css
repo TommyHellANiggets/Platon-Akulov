@@ -43,6 +43,11 @@
     --transition-normal: 0.3s ease;
     --transition-slow: 0.5s ease;
     
+    /* Custom cursor */
+    --cursor-base: url("icons8-курсор.svg") 10 6, auto;
+    --cursor-pointer: url("icons8-курсор-рука.svg") 10 6, auto;
+    --cursor-active: url("icons8-курсор-рука.svg") 10 6, auto;
+
     /* Typography */
     --font-primary: 'Onest', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-secondary: 'Manrope', 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -121,15 +126,37 @@ section {
 
 body {
     background-color: #000000;
-    background-image:
-        radial-gradient(circle at 12% 18%, rgba(52, 245, 198, 0.04), transparent 55%),
-        radial-gradient(circle at 80% 10%, rgba(74, 159, 255, 0.04), transparent 55%);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
     transition: background-image var(--transition-slow), color var(--transition-normal);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        radial-gradient(circle at 12% 18%, rgba(52, 245, 198, 0.04), transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(74, 159, 255, 0.04), transparent 55%);
+    opacity: 0;
+    transition: opacity 1.2s ease, filter 1.2s ease;
+}
+
+body.bg-loaded::before {
+    opacity: 1;
+    animation: bgPulse 10s ease infinite alternate;
+}
+
+@keyframes bgPulse {
+    0% {
+        filter: saturate(0.8);
+    }
+    100% {
+        filter: saturate(1) blur(1px);
+    }
 }
 
 /* Light Theme Styles */
@@ -145,6 +172,170 @@ body.light-theme {
     --text-color: var(--light-text-color);
     --text-color-secondary: var(--light-text-color-secondary);
     --border-color: var(--light-border-color);
+}
+
+.language-splash {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    background: #020204;
+    z-index: 1000;
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    padding: 0 32px;
+}
+
+.language-splash.language-splash--hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body.with-splash {
+    overflow: hidden;
+}
+
+html.with-splash {
+    overflow: hidden;
+}
+
+body.with-splash header {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+body.with-splash .scroll-indicator {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+body.with-splash header,
+body.with-splash .scroll-indicator {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.language-title {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    letter-spacing: 0.25em;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.language-title p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.language-title small {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.language-panel {
+    width: 180px;
+    height: 220px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #fff;
+    letter-spacing: 0.2em;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: relative;
+}
+
+.language-panel::after {
+    display: none;
+}
+
+.language-panel .flag-icon {
+    width: 100px;
+    height: 150px;
+}
+
+.language-divider {
+    width: 2px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.splash-loader {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    animation: splashPulse 1.4s ease-in-out infinite;
+}
+
+.loader-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    box-shadow: 0 0 15px rgba(52, 245, 198, 0.7);
+}
+
+.language-splash.language-splash--loading .splash-loader {
+    opacity: 1;
+}
+
+@keyframes splashPulse {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+body,
+button,
+a,
+input,
+textarea {
+    cursor: var(--cursor-base);
+}
+
+body:active,
+button:active,
+a:active,
+input:active,
+textarea:active {
+    cursor: var(--cursor-active);
+}
+
+button,
+.btn,
+.contact-chip,
+.load-more-btn {
+    cursor: var(--cursor-base);
+}
+
+button:hover,
+.btn:hover,
+.contact-chip:hover,
+.load-more-btn:hover,
+a:hover {
+    cursor: var(--cursor-pointer);
 }
 
 a {
@@ -423,9 +614,9 @@ img, video {
     width: 100%;
     height: 100%;
     z-index: 0;
-    background:
+    /* background:
         radial-gradient(circle at 8% 30%, rgba(52, 245, 198, 0.08), transparent 45%),
-        radial-gradient(circle at 90% 70%, rgba(74, 159, 255, 0.08), transparent 40%);
+        radial-gradient(circle at 90% 70%, rgba(74, 159, 255, 0.08), transparent 40%); */
 }
 
 .marquee-container {
@@ -520,11 +711,11 @@ img, video {
 }
 
 /* Светлая тема для бегущей строки */
-.light-theme .marquee-section::before {
+/* .light-theme .marquee-section::before {
     background: 
         radial-gradient(circle at 25% 25%, rgba(52, 245, 198, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 75% 75%, rgba(74, 159, 255, 0.08) 0%, transparent 50%);
-}
+} */
 
 .light-theme .marquee-container {
     background: rgba(248, 248, 248, 0.7);
