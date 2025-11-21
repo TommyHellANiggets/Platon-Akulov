@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from main import views as main_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('django-admin/', admin.site.urls),
     
     # Включаем все URL из приложения main
     path('', include('main.urls')),

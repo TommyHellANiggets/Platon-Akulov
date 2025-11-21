@@ -84,26 +84,6 @@ def dashboard(request):
                 # Если не удалось преобразовать, пропускаем эту запись
                 continue
         else:
-            day_date = item['day']
-        
-        # Вычисляем индекс дня в массиве
-        day_index = (day_date - week_ago).days
-        if 0 <= day_index < 8:
-            message_counts[day_index] = item['count']
-    
-    context = {
-        'projects_count': projects_count,
-        'testimonials_count': testimonials_count,
-        'unread_messages': unread_messages,
-        'recent_messages': recent_messages,
-        'recent_testimonials': recent_testimonials,
-        'recent_projects': recent_projects,
-        'days': days,
-        'message_counts': message_counts,
-    }
-    
-    return render(request, 'dashboard/index.html', context)
-
 @login_required
 def project_list(request):
     projects = Project.objects.all()
@@ -323,4 +303,4 @@ def mark_all_read(request):
         ContactMessage.objects.filter(is_read=False).update(is_read=True)
         messages.success(request, 'Все сообщения отмечены как прочитанные')
     
-    return redirect('message_list')
+    return redirect('message_list') 

@@ -25,6 +25,24 @@
     font-size: 1rem;
 }
 
+.testimonials-wrapper {
+    position: relative;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+}
+
+.testimonials-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, #050505);
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.4s ease;
+}
+
 .testimonials-grid {
     column-count: 4;
     column-gap: 24px;
@@ -228,9 +246,11 @@
     0% {
         background-position: 0% 0%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 100%;
     }
@@ -246,6 +266,7 @@
     .testimonials {
         padding: 70px 0;
     }
+
     .testimonials-grid {
         column-count: 2;
         column-gap: 18px;

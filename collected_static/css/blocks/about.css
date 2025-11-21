@@ -1,7 +1,7 @@
 /* Стили для секции Обо мне */
 .about {
     padding: 100px 0;
-    background-color: #000000;
+    background-color: transparent;
     position: relative;
     overflow: hidden;
 }

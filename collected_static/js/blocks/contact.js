@@ -1,68 +1,21 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
-    initContactForm();
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('leadForm');
+    const statusEl = document.getElementById('leadStatus');
+    const submitBtn = form ? form.querySelector('.lead-button') : null;
 
-function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) return;
+    if (!form || !submitBtn || !statusEl) return;
 
-    const submitBtn = contactForm.querySelector('.cosmic-btn');
-    const inputs = contactForm.querySelectorAll('input, textarea');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-    // Form submission
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
-        }
+        submitBtn.disabled = true;
+        statusEl.textContent = 'Отправляю запрос...';
 
         setTimeout(() => {
-            contactForm.reset();
-            showNotification('Сообщение отправлено! Вернусь в течение пары часов.', 'success');
-            if (submitBtn) {
-                submitBtn.style.opacity = '1';
-                submitBtn.disabled = false;
-            }
-        }, 1500);
+            form.reset();
+            submitBtn.disabled = false;
+            statusEl.textContent = 'Спасибо! Ответ пришлю в течение рабочего дня.';
+            setTimeout(() => (statusEl.textContent = ''), 4000);
+        }, 1200);
     });
-}
-
-function showNotification(message, type = 'success') {
-    const container = document.getElementById('notification-container');
-    if (!container) return;
-
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-
-    let icon = '<i class="fas fa-info-circle"></i>';
-    if (type === 'success') icon = '<i class="fas fa-check-circle"></i>';
-    if (type === 'error') icon = '<i class="fas fa-exclamation-circle"></i>';
-    if (type === 'warning') icon = '<i class="fas fa-exclamation-triangle"></i>';
-
-    notification.innerHTML = `
-        ${icon}
-        <p>${message}</p>
-        <button class="close-btn"><i class="fas fa-times"></i></button>
-    `;
-
-    container.appendChild(notification);
-
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 10);
-
-    const closeBtn = notification.querySelector('.close-btn');
-    closeBtn.addEventListener('click', () => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    });
-
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.classList.remove('show');
-            setTimeout(() => notification.remove(), 300);
-        }
-    }, 5000);
-}
+});

@@ -24,13 +24,13 @@ sys.path.insert(0, str(BASE_DIR))
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-your-secret-key-here'
+SECRET_KEY = 'django-insecure-platon-akulov-portfolio-2024-secret-key-change-in-production'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # Оставляем для отладки на хостинге
 DEBUG_ON_SERVER = True  # Для отладки на сервере
 
-ALLOWED_HOSTS = ['platonakulov.ru', 'www.platonakulov.ru', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['platon-akulov.ru', 'www.platon-akulov.ru', 'localhost', '127.0.0.1', '37.140.192.35']
 
 
 # Application definition
@@ -147,7 +147,7 @@ SESSION_COOKIE_SECURE = False
 # SECURE_SSL_REDIRECT = True  # Закомментировано, так как редирект уже настроен в .htaccess
 
 # Добавляем домен в CSRF_TRUSTED_ORIGINS
-CSRF_TRUSTED_ORIGINS = ['https://platonakulov.ru', 'https://www.platonakulov.ru']
+CSRF_TRUSTED_ORIGINS = ['https://platon-akulov.ru', 'https://www.platon-akulov.ru']
 
 # Настройки CORS
 CORS_ALLOW_ALL_ORIGINS = True  # Временно разрешаем все источники для отладки

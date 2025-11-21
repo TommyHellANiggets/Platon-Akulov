@@ -1,6 +1,7 @@
 ﻿{% load static %}
 <!DOCTYPE html>
 <html lang="ru" id="html-document">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,11 @@
     <link rel="icon" href="{% static 'images/favicon.svg' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Подключение CSS файлов -->
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <link rel="stylesheet" href="{% static 'css/blocks/header.css' %}">
@@ -23,6 +26,7 @@
     <link rel="stylesheet" href="{% static 'css/blocks/statistics.css' %}">
     <link rel="stylesheet" href="{% static 'css/blocks/background-animation.css' %}">
 </head>
+
 <body class="dark-theme">
     <div class="language-splash" id="languageSplash">
         <div class="language-title">
@@ -31,20 +35,20 @@
         </div>
         <div class="language-panel language-panel--ru" data-lang="ru">
             <svg class="flag-icon" viewBox="0 0 90 60" role="img" aria-label="Russian flag">
-                <rect width="90" height="20" y="0" fill="#ffffff"/>
-                <rect width="90" height="20" y="20" fill="#005bbb"/>
-                <rect width="90" height="20" y="40" fill="#d52b1e"/>
+                <rect width="90" height="20" y="0" fill="#ffffff" />
+                <rect width="90" height="20" y="20" fill="#005bbb" />
+                <rect width="90" height="20" y="40" fill="#d52b1e" />
             </svg>
             <span>Русский</span>
         </div>
         <div class="language-divider"></div>
         <div class="language-panel language-panel--en" data-lang="en">
             <svg class="flag-icon" viewBox="0 0 90 60" role="img" aria-label="British flag">
-                <rect width="90" height="60" fill="#012169"/>
-                <path d="M0 0 L90 60 M90 0 L0 60" stroke="#fff" stroke-width="12"/>
-                <path d="M0 0 L90 60 M90 0 L0 60" stroke="#cf142b" stroke-width="8"/>
-                <path d="M45 0 L45 60 M0 30 L90 30" stroke="#fff" stroke-width="12"/>
-                <path d="M45 0 L45 60 M0 30 L90 30" stroke="#cf142b" stroke-width="8"/>
+                <rect width="90" height="60" fill="#012169" />
+                <path d="M0 0 L90 60 M90 0 L0 60" stroke="#fff" stroke-width="12" />
+                <path d="M0 0 L90 60 M90 0 L0 60" stroke="#cf142b" stroke-width="8" />
+                <path d="M45 0 L45 60 M0 30 L90 30" stroke="#fff" stroke-width="12" />
+                <path d="M45 0 L45 60 M0 30 L90 30" stroke="#cf142b" stroke-width="8" />
             </svg>
             <span>English</span>
         </div>
@@ -58,7 +62,7 @@
     <div class="gradient-blob blob-1"></div>
     <div class="gradient-blob blob-2"></div>
     <div class="gradient-blob blob-3"></div>
-    
+
     <!-- Добавляем светящиеся точки -->
     <div class="glow-dot dot-1"></div>
     <div class="glow-dot dot-2"></div>
@@ -70,7 +74,7 @@
     <div class="glow-dot dot-8"></div>
     <div class="glow-dot dot-9"></div>
     <div class="glow-dot dot-10"></div>
-    
+
     <header>
         <div class="container">
             <a href="#" class="logo">Портфолио</a>
@@ -84,35 +88,35 @@
                 </ul>
             </nav>
             <div class="header-right">
-            <div class="theme-toggle">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-                <div class="toggle-ball">
-                    <div class="sun-rays"></div>
+                <div class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                    <div class="toggle-ball">
+                        <div class="sun-rays"></div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Переключатель языка -->
-            <div class="language-selector">
-                <div class="current-language">
-                    <img src="{% static 'flags/ru.svg' %}" alt="RU" class="flag-icon">
-                    <span>RU</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="language-dropdown">
-                    <a href="#" class="language-option active" data-lang="ru">
+
+                <!-- Переключатель языка -->
+                <div class="language-selector">
+                    <div class="current-language">
                         <img src="{% static 'flags/ru.svg' %}" alt="RU" class="flag-icon">
-                        <span>Русский</span>
-                    </a>
-                    <a href="#" class="language-option" data-lang="uk">
-                        <img src="{% static 'flags/uk.svg' %}" alt="UK" class="flag-icon">
-                        <span>English</span>
-                    </a>
+                        <span>RU</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="language-dropdown">
+                        <a href="#" class="language-option active" data-lang="ru">
+                            <img src="{% static 'flags/ru.svg' %}" alt="RU" class="flag-icon">
+                            <span>Русский</span>
+                        </a>
+                        <a href="#" class="language-option" data-lang="uk">
+                            <img src="{% static 'flags/uk.svg' %}" alt="UK" class="flag-icon">
+                            <span>English</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
+
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
                 </div>
             </div>
         </div>
@@ -139,7 +143,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Переключатель языка в боковом меню -->
         <div class="sidebar-language">
             <div class="language-label">Язык / Language</div>
@@ -154,7 +158,7 @@
                 </a>
             </div>
         </div>
-        
+
         <div class="sidebar-footer">
             <p>Свяжитесь со мной</p>
             <div class="sidebar-social">
@@ -169,7 +173,9 @@
         <section id="home" class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1 data-ru="Привет, я <span class='accent-text'>Fullstack разработчик</span>" data-uk="Hello, I'm a <span class='accent-text'>Fullstack developer</span>">Приветъ, я <span class="accent-text">Fullstack разработчик</span></h1>
+                    <h1 data-ru="Привет, я <span class='accent-text'>Fullstack разработчик</span>"
+                        data-uk="Hello, I'm a <span class='accent-text'>Fullstack developer</span>">Приветъ, я <span
+                            class="accent-text">Fullstack разработчик</span></h1>
                     <div class="hero-description">
                         <div class="hero-terminal" id="hero-terminal">
                             <div class="terminal-header">
@@ -200,10 +206,12 @@
                         </div>
                     </div>
                     <div class="hero-buttons">
-                        <a href="#projects" class="btn primary-btn" data-ru="Мои проекты" data-uk="My Projects">Мои проекты</a>
-                        <a href="#contact" class="btn secondary-btn" data-ru="Связаться" data-uk="Contact Me">Связаться</a>
+                        <a href="#projects" class="btn primary-btn" data-ru="Мои проекты" data-uk="My Projects">Мои
+                            проекты</a>
+                        <a href="#contact" class="btn secondary-btn" data-ru="Связаться"
+                            data-uk="Contact Me">Связаться</a>
                     </div>
-                    
+
                     <div class="tech-badges">
                         <div class="tech-badge" title="Django">
                             <i class="fab fa-python"></i>
@@ -222,7 +230,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="floating-elements">
                     <div class="floating-element elem-1"><i class="fas fa-code"></i></div>
                     <div class="floating-element elem-2"><i class="fas fa-database"></i></div>
@@ -231,7 +239,7 @@
                     <div class="floating-element elem-5"><i class="fas fa-cogs"></i></div>
                 </div>
             </div>
-            
+
             <div class="scroll-indicator">
                 <span data-ru="Прокрутите вниз" data-uk="Scroll Down">Прокрутите вниз</span>
                 <i class="fas fa-chevron-down"></i>
@@ -241,7 +249,7 @@
         <section id="about" class="about">
             <div class="container">
                 <h2 class="section-title" data-ru="Обо мне" data-uk="About me">Обо мне</h2>
-                
+
                 <div class="about-wrapper">
                     <div class="about-image">
                         <div class="image-container">
@@ -297,20 +305,33 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="about-details">
                         <div class="about-header">
                             <h3 id="about-title" data-ru="Идея" data-uk="Idea">Идея</h3>
-                            <p class="about-subtitle typed-text" id="about-subtitle" data-ru="Анализ потребностей и формирование концепции" data-uk="Needs analysis and concept formation">Анализ потребностей и формирование концепции</p>
+                            <p class="about-subtitle typed-text" id="about-subtitle"
+                                data-ru="Анализ потребностей и формирование концепции"
+                                data-uk="Needs analysis and concept formation">Анализ потребностей и формирование
+                                концепции</p>
                         </div>
-                        
+
                         <div class="about-description" id="about-description">
-                            <p class="typed-text" id="about-text-primary" data-ru="Применяю современные техники анализа: интервью с заинтересованными сторонами, пользовательские истории (User Stories), методы дизайн-мышления и составление карт пути пользователя (User Journey Maps)." data-uk="I apply modern analysis techniques: stakeholder interviews, user stories, design thinking methods, and user journey mapping.">Применяю современные техники анализа: интервью с заинтересованными сторонами, пользовательские истории (User Stories), методы дизайн-мышления и составление карт пути пользователя (User Journey Maps).</p>
-                            <p class="typed-text" id="about-text-secondary" data-ru="Использую инструменты для прототипирования: Figma, Miro и Draw.io для создания структурных схем. Провожу исследования рынка и анализ конкурентов для формирования уникального ценностного предложения продукта." data-uk="I use prototyping tools: Figma, Miro, and Draw.io for structural diagrams. I conduct market research and competitor analysis to form a unique value proposition for the product.">Использую инструменты для прототипирования: Figma, Miro и Draw.io для создания структурных схем. Провожу исследования рынка и анализ конкурентов для формирования уникального ценностного предложения продукта.</p>
+                            <p class="typed-text" id="about-text-primary"
+                                data-ru="Применяю современные техники анализа: интервью с заинтересованными сторонами, пользовательские истории (User Stories), методы дизайн-мышления и составление карт пути пользователя (User Journey Maps)."
+                                data-uk="I apply modern analysis techniques: stakeholder interviews, user stories, design thinking methods, and user journey mapping.">
+                                Применяю современные техники анализа: интервью с заинтересованными сторонами,
+                                пользовательские истории (User Stories), методы дизайн-мышления и составление карт пути
+                                пользователя (User Journey Maps).</p>
+                            <p class="typed-text" id="about-text-secondary"
+                                data-ru="Использую инструменты для прототипирования: Figma, Miro и Draw.io для создания структурных схем. Провожу исследования рынка и анализ конкурентов для формирования уникального ценностного предложения продукта."
+                                data-uk="I use prototyping tools: Figma, Miro, and Draw.io for structural diagrams. I conduct market research and competitor analysis to form a unique value proposition for the product.">
+                                Использую инструменты для прототипирования: Figma, Miro и Draw.io для создания
+                                структурных схем. Провожу исследования рынка и анализ конкурентов для формирования
+                                уникального ценностного предложения продукта.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Статистика в отдельном блоке -->
                 <div class="stats-wrapper">
                     <div class="stats-container">
@@ -332,14 +353,16 @@
                         </div>
                         <div class="stat-item">
                             <div class="stat-value">2 часа</div>
-                            <div class="stat-label" data-ru="Скорость ответа" data-uk="Response time">Скорость ответа</div>
+                            <div class="stat-label" data-ru="Скорость ответа" data-uk="Response time">Скорость ответа
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="skills-wrapper">
-                    <h3 class="skills-title" data-ru="Мой технологический стек" data-uk="My technology stack">Мой технологический стек</h3>
-                    
+                    <h3 class="skills-title" data-ru="Мой технологический стек" data-uk="My technology stack">Мой
+                        технологический стек</h3>
+
                     <div class="tech-stack-container">
                         <div class="tech-category">
                             <div class="tech-category-header">
@@ -367,7 +390,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tech-category">
                             <div class="tech-category-header">
                                 <div class="tech-category-icon">
@@ -394,7 +417,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tech-category">
                             <div class="tech-category-header">
                                 <div class="tech-category-icon">
@@ -421,7 +444,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tech-category">
                             <div class="tech-category-header">
                                 <div class="tech-category-icon">
@@ -444,7 +467,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tech-category">
                             <div class="tech-category-header">
                                 <div class="tech-category-icon">
@@ -525,7 +548,7 @@
             </div>
         </section>
 
-        
+
         <!-- Стильная бегущая полоса -->
         <div class="marquee-section">
             <div class="container">
@@ -684,9 +707,10 @@
             <div class="testimonials-container">
                 <div class="section-title">
                     <h2 data-ru="Отзывы клиентов" data-uk="Client Testimonials">Отзывы клиентов</h2>
-                    <p data-ru="Что говорят о моей работе" data-uk="What people say about my work">Что говорят о моей работе</p>
+                    <p data-ru="Что говорят о моей работе" data-uk="What people say about my work">Что говорят о моей
+                        работе</p>
                 </div>
-                
+
                 <div class="testimonials-wrapper">
                     <div class="testimonials-grid">
                         {% for testimonial in testimonials %}
@@ -694,7 +718,8 @@
                             <div class="testimonial-content">
                                 <div class="testimonial-header">
                                     <div class="testimonial-project">{{ testimonial.project_title }}</div>
-                                    <span class="testimonial-emoji {% if testimonial.is_positive %}emoji-positive{% else %}emoji-negative{% endif %}">
+                                    <span
+                                        class="testimonial-emoji {% if testimonial.is_positive %}emoji-positive{% else %}emoji-negative{% endif %}">
                                         {% if testimonial.is_positive %}
                                         <i class="fas fa-smile"></i>
                                         {% else %}
@@ -702,37 +727,37 @@
                                         {% endif %}
                                     </span>
                                 </div>
-                                
+
                                 <div class="testimonial-date">
                                     <i class="far fa-calendar-alt"></i>
                                     {{ testimonial.date|date:"d F Y" }}
                                 </div>
-                                
+
                                 <div class="testimonial-rating">
                                     {% if testimonial.is_positive %}
-                                        <div class="stars">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
                                     {% else %}
-                                        <div class="stars">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
                                     {% endif %}
                                 </div>
-                                
+
                                 <p class="testimonial-quote">{{ testimonial.comment }}</p>
-                                
+
                                 <div class="testimonial-author">
                                     <span class="author-name">{{ testimonial.author_name }}</span>
-                                    
+
                                     {% if testimonial.link %}
                                     <div class="testimonial-link">
                                         <a href="{{ testimonial.link }}" target="_blank" title="Перейти к отзыву">
@@ -753,12 +778,12 @@
                                         <i class="fas fa-smile"></i>
                                     </span>
                                 </div>
-                                
+
                                 <div class="testimonial-date">
                                     <i class="far fa-calendar-alt"></i>
                                     18 марта 2023
                                 </div>
-                                
+
                                 <div class="testimonial-rating">
                                     <div class="stars">
                                         <i class="fas fa-star"></i>
@@ -768,9 +793,10 @@
                                         <i class="fas fa-star"></i>
                                     </div>
                                 </div>
-                                
-                                <p class="testimonial-quote">Отличная работа! Сайт был сделан точно в срок и даже с дополнительными функциями, которые я не ожидал. Рекомендую этого разработчика.</p>
-                                
+
+                                <p class="testimonial-quote">Отличная работа! Сайт был сделан точно в срок и даже с
+                                    дополнительными функциями, которые я не ожидал. Рекомендую этого разработчика.</p>
+
                                 <div class="testimonial-author">
                                     <span class="author-name">Александр П.</span>
                                     <div class="testimonial-link">
@@ -781,7 +807,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <div class="testimonial-header">
@@ -790,12 +816,12 @@
                                         <i class="fas fa-smile"></i>
                                     </span>
                                 </div>
-                                
+
                                 <div class="testimonial-date">
                                     <i class="far fa-calendar-alt"></i>
                                     5 апреля 2023
                                 </div>
-                                
+
                                 <div class="testimonial-rating">
                                     <div class="stars">
                                         <i class="fas fa-star"></i>
@@ -805,15 +831,17 @@
                                         <i class="fas fa-star"></i>
                                     </div>
                                 </div>
-                                
-                                <p class="testimonial-quote">Я в восторге от результата! Приложение работает идеально и выглядит гораздо лучше, чем я мог представить. Спасибо за профессиональный подход и внимание к деталям. Обязательно буду рекомендовать вас своим коллегам.</p>
-                                
+
+                                <p class="testimonial-quote">Я в восторге от результата! Приложение работает идеально и
+                                    выглядит гораздо лучше, чем я мог представить. Спасибо за профессиональный подход и
+                                    внимание к деталям. Обязательно буду рекомендовать вас своим коллегам.</p>
+
                                 <div class="testimonial-author">
                                     <span class="author-name">Мария К.</span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <div class="testimonial-header">
@@ -822,12 +850,12 @@
                                         <i class="fas fa-smile"></i>
                                     </span>
                                 </div>
-                                
+
                                 <div class="testimonial-date">
                                     <i class="far fa-calendar-alt"></i>
                                     12 мая 2023
                                 </div>
-                                
+
                                 <div class="testimonial-rating">
                                     <div class="stars">
                                         <i class="fas fa-star"></i>
@@ -837,9 +865,10 @@
                                         <i class="fas fa-star-half-alt"></i>
                                     </div>
                                 </div>
-                                
-                                <p class="testimonial-quote">Очень доволен сотрудничеством! Магазин работает быстро, увеличились продажи. Буду обращаться еще за доработками и поддержкой.</p>
-                                
+
+                                <p class="testimonial-quote">Очень доволен сотрудничеством! Магазин работает быстро,
+                                    увеличились продажи. Буду обращаться еще за доработками и поддержкой.</p>
+
                                 <div class="testimonial-author">
                                     <span class="author-name">Дмитрий В.</span>
                                     <div class="testimonial-link">
@@ -850,7 +879,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <div class="testimonial-header">
@@ -859,12 +888,12 @@
                                         <i class="fas fa-angry"></i>
                                     </span>
                                 </div>
-                                
+
                                 <div class="testimonial-date">
                                     <i class="far fa-calendar-alt"></i>
                                     3 июня 2023
                                 </div>
-                                
+
                                 <div class="testimonial-rating">
                                     <div class="stars">
                                         <i class="fas fa-star"></i>
@@ -874,9 +903,11 @@
                                         <i class="far fa-star"></i>
                                     </div>
                                 </div>
-                                
-                                <p class="testimonial-quote">Работа не была выполнена в срок, хотя результат в итоге получился приемлемым. Были некоторые недочеты, которые пришлось исправлять после сдачи проекта.</p>
-                                
+
+                                <p class="testimonial-quote">Работа не была выполнена в срок, хотя результат в итоге
+                                    получился приемлемым. Были некоторые недочеты, которые пришлось исправлять после
+                                    сдачи проекта.</p>
+
                                 <div class="testimonial-author">
                                     <span class="author-name">Елена С.</span>
                                 </div>
@@ -886,28 +917,40 @@
                     </div>
                     <div class="testimonials-overlay"></div>
                 </div>
-                
+
                 <div class="load-more-container">
-                    <button class="load-more-btn" id="load-more-testimonials" data-ru="Показать еще" data-uk="Show more">
+                    <button class="load-more-btn" id="load-more-testimonials" data-ru="Показать еще"
+                        data-uk="Show more">
                         Показать еще <i class="fas fa-chevron-down"></i>
                     </button>
                 </div>
             </div>
         </section>
-                        <section id="contact" class="contact simple-contact">
+        <section id="contact" class="contact simple-contact">
             <div class="container">
                 <div class="simple-shell">
                     <div class="simple-grid">
                         <div class="simple-intro">
-                            <p class="intro-tag" data-ru="Запрос на проект" data-uk="Project inquiry">Запрос на проект</p>
-                            <h2 class="intro-title" data-ru="Опишите задачу в трёх строках" data-uk="Describe the project in three lines">Опишите задачу в трёх строках</h2>
-                            <p class="intro-text" data-ru="Напишите что запускаем, когда нужен результат и какой бюджет. Отвечу в рабочий день с конкретным планом." data-uk="Tell me what we build, when you need it, and the budget range — I reply the same business day.">Напишите что запускаем, когда нужен результат и какой бюджет. Отвечу в рабочий день с конкретным планом.</p>
+                            <p class="intro-tag" data-ru="Запрос на проект" data-uk="Project inquiry">Запрос на проект
+                            </p>
+                            <h2 class="intro-title" data-ru="Опишите задачу в трёх строках"
+                                data-uk="Describe the project in three lines">Опишите задачу в трёх строках</h2>
+                            <p class="intro-text"
+                                data-ru="Напишите что запускаем, когда нужен результат и какой бюджет. Отвечу в рабочий день с конкретным планом."
+                                data-uk="Tell me what we build, when you need it, and the budget range — I reply the same business day.">
+                                Напишите что запускаем, когда нужен результат и какой бюджет. Отвечу в рабочий день с
+                                конкретным планом.</p>
                             <div class="intro-steps">
-                                <p data-ru="В сообщении обязательно:" data-uk="Include in your message:">В сообщении обязательно:</p>
+                                <p data-ru="В сообщении обязательно:" data-uk="Include in your message:">В сообщении
+                                    обязательно:</p>
                                 <div class="steps-list">
-                                    <span data-ru="1. Продукт / функция и цель" data-uk="1. Product or feature goal">1. Продукт / функция и цель</span>
-                                    <span data-ru="2. Срок или дедлайн" data-uk="2. Deadline or launch window">2. Срок или дедлайн</span>
-                                    <span data-ru="3. Бюджет или формат сотрудничества" data-uk="3. Budget or engagement format">3. Бюджет или формат сотрудничества</span>
+                                    <span data-ru="1. Продукт / функция и цель" data-uk="1. Product or feature goal">1.
+                                        Продукт / функция и цель</span>
+                                    <span data-ru="2. Срок или дедлайн" data-uk="2. Deadline or launch window">2. Срок
+                                        или дедлайн</span>
+                                    <span data-ru="3. Бюджет или формат сотрудничества"
+                                        data-uk="3. Budget or engagement format">3. Бюджет или формат
+                                        сотрудничества</span>
                                 </div>
                             </div>
                         </div>
@@ -919,15 +962,21 @@
                                     <input type="text" id="leadName" name="name" placeholder="Имя" required>
                                 </div>
                                 <div class="lead-field">
-                                    <label for="leadEmail" data-ru="Рабочий email" data-uk="Work email">Рабочий email</label>
-                                    <input type="email" id="leadEmail" name="email" placeholder="email@company.com" required>
+                                    <label for="leadEmail" data-ru="Рабочий email" data-uk="Work email">Рабочий
+                                        email</label>
+                                    <input type="email" id="leadEmail" name="email" placeholder="email@company.com"
+                                        required>
                                 </div>
                                 <div class="lead-field">
-                                    <label for="leadMessage" data-ru="Что нужно сделать" data-uk="What we should build">Что нужно сделать</label>
-                                    <textarea id="leadMessage" name="message" placeholder="Коротко опишите продукт, сроки и желаемый результат" required></textarea>
+                                    <label for="leadMessage" data-ru="Что нужно сделать"
+                                        data-uk="What we should build">Что нужно сделать</label>
+                                    <textarea id="leadMessage" name="message"
+                                        placeholder="Коротко опишите продукт, сроки и желаемый результат"
+                                        required></textarea>
                                 </div>
                                 <div class="lead-actions">
-                                    <button type="submit" class="lead-button" data-ru="Отправить предложение" data-uk="Request a call">Отправить предложение</button>
+                                    <button type="submit" class="lead-button" data-ru="Отправить предложение"
+                                        data-uk="Request a call">Отправить предложение</button>
                                     <p id="leadStatus" class="lead-status" aria-live="polite"></p>
                                 </div>
                             </form>
@@ -971,13 +1020,12 @@
     <script src="{% static 'js/blocks/reviews.js' %}"></script>
     <script src="{% static 'js/blocks/contact.js' %}"></script>
     <script src="{% static 'js/blocks/statistics.js' %}"></script>
+    <script src="{% static 'js/blocks/smooth-scroll.js' %}"></script>
     <script src="{% static 'js/blocks/language-splash.js' %}"></script>
     <!-- Добавляем основной скрипт -->
     <script src="{% static 'js/script.js' %}"></script>
     <!-- Подключаем наш файл анимации перед закрывающим тегом body -->
     <!-- <script src="{% static 'js/blocks/background-animation.js' %}"></script> -->
 </body>
-</html> 
 
-
-
+</html>

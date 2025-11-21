@@ -1,5 +1,11 @@
 AddDefaultCharset UTF-8
 
+# Включаем Passenger для Python WSGI
+PassengerEnabled On
+PassengerAppType wsgi
+PassengerStartupFile passenger_wsgi.py
+PassengerPython /var/www/u3332631/data/www/platon-akulov.ru/venv/bin/python3
+
 RewriteEngine On
 
 # Перенаправление с HTTP на HTTPS (только если запрос пришел по HTTP)
@@ -14,31 +20,16 @@ RewriteRule ^media/(.*)$ media/$1 [L]
 RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|ico|css|js|eot|woff|woff2|ttf|svg|pdf)$
 RewriteRule ^(.*)$ $1 [L]
 
-# Разрешаем доступ к панели управления
-RewriteCond %{REQUEST_URI} ^/dashboard
-RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
-
-# Разрешаем доступ к админке
-RewriteCond %{REQUEST_URI} ^/admin
-RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
-
-# Разрешаем доступ к авторизации
-RewriteCond %{REQUEST_URI} ^/login
-RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
-
-RewriteCond %{REQUEST_URI} ^/logout
-RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
-
-# Перенаправляем все остальные запросы на passenger_wsgi.py
+# Все остальные запросы через Passenger
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
+RewriteRule ^(.*)$ - [L]
 
 # Настройки PHP (если используется)
 <IfModule mod_php7.c>
     php_flag display_errors Off
     php_flag log_errors On
-    php_value error_log /var/www/u3052942/data/logs/php_errors.log
+    php_value error_log /var/www/u3332631/data/logs/php_errors.log
     php_value error_reporting 0
     php_value upload_max_filesize 64M
     php_value post_max_size 64M
@@ -66,4 +57,4 @@ RewriteRule ^(.*)$ passenger_wsgi.py/$1 [QSA,L]
 # Сжатие файлов
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
-</IfModule> 
+</IfModule>

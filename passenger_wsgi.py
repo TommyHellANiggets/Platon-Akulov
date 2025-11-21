@@ -5,10 +5,10 @@ import traceback
 import importlib.util
 import re
 
-# Путь к корню сайта
-SITE_ROOT = '/var/www/u3052942/data/www/platonakulov.ru'
-# Путь к виртуальному окружению Python
-VENV_PATH = '/var/www/u3052942/data/venv/lib/python3.8/site-packages'
+# Путь к корню сайта для Reg.ru (ПРАВИЛЬНЫЙ путь с сервера!)
+SITE_ROOT = '/var/www/u3332631/data/www/platon-akulov.ru'
+# Путь к виртуальному окружению Python (Python 3.8.6 на сервере)
+VENV_PATH = '/var/www/u3332631/data/www/platon-akulov.ru/venv/lib/python3.8/site-packages'
 
 # Добавляем пути в sys.path
 sys.path.insert(0, SITE_ROOT)
@@ -169,4 +169,4 @@ except Exception as e:
         </html>
         """
         
-        return [error_message.encode('utf-8')] 
+        return [error_message.encode('utf-8')]

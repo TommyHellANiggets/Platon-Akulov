@@ -27,9 +27,9 @@
     --shape-3-color: rgba(46, 226, 106, 0.4);
     
     /* Шрифты */
-    --font-primary: 'Raleway', sans-serif;
-    --font-secondary: 'Space Grotesk', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
+    --font-primary: 'Onest', 'Manrope', sans-serif;
+    --font-secondary: 'Manrope', 'Onest', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 .light-theme {

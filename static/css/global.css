@@ -3,7 +3,7 @@
     /* Primary Colors */
     --spotify-green: #1DB954;
     --facebook-blue: #1877F2;
-    
+
     /* Theme Colors */
     --primary-color: #34f5c6;
     --primary-color-rgb: 52, 245, 198;
@@ -11,7 +11,7 @@
     --secondary-color-rgb: 74, 159, 255;
     --accent-color: #7be0ff;
     --accent-color-rgb: 123, 224, 255;
-    
+
     /* Dark Theme (Default) */
     --bg-color: #010409;
     --bg-color-secondary: rgba(5, 12, 24, 0.7);
@@ -19,30 +19,30 @@
     --text-color-secondary: #90a2b8;
     --border-color: rgba(82, 255, 206, 0.25);
     --surface-glow: 0 35px 120px rgba(3, 7, 17, 0.85);
-    
+
     /* Light Theme (Toggled) */
     --light-bg-color: #FFFFFF;
     --light-bg-color-secondary: #F5F5F5;
     --light-text-color: #121212;
     --light-text-color-secondary: #666666;
     --light-border-color: #E5E5E5;
-    
+
     /* Layout Settings */
     --container-width: 1200px;
     --container-padding: 15px;
     --border-radius: 12px;
     --header-spacing: 20px;
-    
+
     /* Shadows */
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
     --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
-    
+
     /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.5s ease;
-    
+
     /* Custom cursor */
     --cursor-base: url("icons8-курсор.svg") 10 6, auto;
     --cursor-pointer: url("icons8-курсор-рука.svg") 10 6, auto;
@@ -61,7 +61,7 @@
     --font-size-3xl: 1.875rem;
     --font-size-4xl: 2.25rem;
     --font-size-5xl: 3rem;
-    
+
     /* Z-index layers */
     --z-header: 100;
     --z-sidebar: 200;
@@ -97,32 +97,6 @@
     box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.5);
 }
 
-/* Firefox scrollbar */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) rgba(30, 30, 30, 0.8);
-}
-
-html {
-    height: auto;
-    width: 100%;
-    font-family: var(--font-primary);
-    font-size: var(--font-size-md);
-    scroll-behavior: smooth;
-}
-
-body {
-    height: auto;
-    width: 100%;
-    font-family: var(--font-primary);
-    font-size: var(--font-size-md);
-    scroll-behavior: smooth;
-    padding-top: 70px; /* Добавляем отступ сверху для фиксированного хедера */
-}
-
-section {
-    scroll-margin-top: 80px;
-}
 
 body {
     background-color: #000000;
@@ -154,6 +128,7 @@ body.bg-loaded::before {
     0% {
         filter: saturate(0.8);
     }
+
     100% {
         filter: saturate(1) blur(1px);
     }
@@ -299,9 +274,12 @@ body.with-splash .scroll-indicator {
 }
 
 @keyframes splashPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -348,11 +326,13 @@ a:hover {
     color: var(--primary-color);
 }
 
-ul, ol {
+ul,
+ol {
     list-style: none;
 }
 
-img, video {
+img,
+video {
     max-width: 100%;
     height: auto;
 }
@@ -457,7 +437,7 @@ img, video {
     :root {
         --container-width: 540px;
     }
-    
+
     .section {
         padding: 40px 0;
     }
@@ -574,7 +554,7 @@ img, video {
         right: 20px;
         bottom: 20px;
     }
-    
+
     .notification {
         min-width: auto;
         width: 100%;
@@ -705,6 +685,7 @@ img, video {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -749,16 +730,16 @@ img, video {
         margin-bottom: 60px;
         padding: 20px 0;
     }
-    
+
     .marquee-container {
         padding: 20px 0;
     }
-    
+
     .marquee-item {
         padding: 6px 15px;
         font-size: 0.9em;
     }
-    
+
     .marquee-item i {
         font-size: 1.1em;
     }
@@ -769,16 +750,16 @@ img, video {
         margin-bottom: 40px;
         padding: 15px 0;
     }
-    
+
     .marquee-container {
         padding: 15px 0;
     }
-    
+
     .marquee-item {
         padding: 5px 10px;
         font-size: 0.85em;
     }
-    
+
     .marquee-item i {
         margin-right: 8px;
     }

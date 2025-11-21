@@ -118,75 +118,17 @@ function initTerminal() {
     const terminal = document.getElementById('hero-terminal');
     if (!terminal) return;
 
-    const content = terminal.querySelector('.terminal-content');
+    const content = terminal.querySelector('.terminal-lines');
     if (!content) return;
     content.innerHTML = '';
 
     const terminalLines = [
-        { prompt: '➜', text: 'Привет! Я Платон — Fullstack разработчик.', type: 'command', tag: 'ОПЫТ' },
-        { prompt: '▧', text: '5+ лет запускаю CRM, аналитические панели и быстрые MVP.', type: 'note' },
-        { prompt: '⚙', text: 'Стек: Django, DRF, React, PostgreSQL, Celery, Docker.', type: 'stack', tag: 'СТЕК' },
-        { prompt: '#', text: 'Руками собираю архитектуру и веду команду до релиза.', type: 'note', tag: 'PROD' },
-        { prompt: '✉', text: 'Пиши в Telegram → t.me/+zuZmNbiYp5djYzJi', type: 'highlight', tag: 'СВЯЗЬ', pause: 1500 }
+        { number: 1, text: 'Привет! Я Платон — fullstack разработчик.', type: 'command' },
+        { number: 2, text: 'Создаю продукты, которые растят бизнес.', type: 'note' },
+        { number: 3, text: '50+ завершённых проектов: от MVP до высоконагруженных платформ.', type: 'stack' },
+        { number: 4, text: 'Стек: Django, DRF, React, PostgreSQL, Celery, Docker.', type: 'stack' },
+        { number: 5, text: 'Связаться → t.me/+zuZmNbiYp5djYzJi', type: 'highlight', pause: 1600 }
     ];
-
-    let currentLineIndex = 0;
-
-    function schedule(callback, delay) {
-        return window.setTimeout(callback, delay);
-    }
-
-    function typeLine(lineData) {
-        const line = document.createElement('div');
-        line.className = 'terminal-line' + (lineData.type ? ` ${lineData.type}` : '');
-
-        const prompt = document.createElement('span');
-        prompt.className = 'terminal-prompt';
-        prompt.textContent = lineData.prompt || '$';
-        line.appendChild(prompt);
-
-        if (lineData.tag) {
-            const tag = document.createElement('span');
-            tag.className = 'line-tag';
-            tag.textContent = lineData.tag;
-            line.appendChild(tag);
-        }
-
-        const textSpan = document.createElement('span');
-        textSpan.className = 'terminal-text';
-        line.appendChild(textSpan);
-
-        content.appendChild(line);
-        content.scrollTop = content.scrollHeight;
-        line.classList.add('typing');
-
-        let charIndex = 0;
-
-        function typeNextChar() {
-            if (charIndex < lineData.text.length) {
-                textSpan.textContent += lineData.text.charAt(charIndex);
-                charIndex += 1;
-                schedule(typeNextChar, lineData.speed || 45 + Math.random() * 35);
-            } else {
-                line.classList.remove('typing');
-                schedule(renderNextLine, lineData.pause || 900);
-            }
-        }
-
-        schedule(typeNextChar, lineData.initialDelay || 0);
-    }
-
-    function renderNextLine() {
-        if (currentLineIndex >= terminalLines.length) {
-            schedule(function() {
-                content.innerHTML = '';
-                currentLineIndex = 0;
-                renderNextLine();
-            }, 3500);
-            return;
-        }
-
-        const lineData = terminalLines[currentLineIndex];
         currentLineIndex += 1;
         typeLine(lineData);
     }
