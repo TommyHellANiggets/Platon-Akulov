@@ -1,3 +1,20 @@
+/* Custom Fonts */
+@font-face {
+    font-family: 'SK Primo';
+    src: url('../fonts/SK Primo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PatsySans';
+    src: url('../fonts/PatsySans-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
 /* Global CSS Variables and Settings */
 :root {
     /* Primary Colors */
@@ -49,9 +66,9 @@
     --cursor-active: url("icons8-курсор-рука.svg") 10 6, auto;
 
     /* Typography */
-    --font-primary: 'Onest', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-secondary: 'Manrope', 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', monospace;
+    --font-heading: 'SK Primo', sans-serif;
+    --font-primary: 'SK Primo', sans-serif;
+    --font-secondary: 'PatsySans', sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-md: 1rem;
@@ -74,6 +91,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Heading Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
 }
 
 /* Кастомный скроллбар */
@@ -101,6 +128,7 @@
 body {
     background-color: #000000;
     color: var(--text-color);
+    font-family: var(--font-secondary);
     line-height: 1.6;
     overflow-x: hidden;
     transition: background-image var(--transition-slow), color var(--transition-normal);
@@ -112,11 +140,11 @@ body::before {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-image:
-        radial-gradient(circle at 12% 18%, rgba(52, 245, 198, 0.04), transparent 55%),
+    background-image: radial-gradient(circle at 12% 18%, rgba(52, 245, 198, 0.04), transparent 55%),
         radial-gradient(circle at 80% 10%, rgba(74, 159, 255, 0.04), transparent 55%);
     opacity: 0;
-    transition: opacity 1.2s ease, filter 1.2s ease;
+    transition: opacity 1.2s ease,
+        filter 1.2s ease;
 }
 
 body.bg-loaded::before {

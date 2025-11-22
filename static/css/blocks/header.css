@@ -4,21 +4,22 @@ header {
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: 9999 !important; /* Максимальный z-index */
+    z-index: 9999 !important;
+    /* Максимальный z-index */
     width: 100% !important;
     padding: 15px 0 0 0 !important;
 }
 
 header .container {
-    background-color: rgba(2, 7, 15, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 30px;
     padding: 16px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid rgba(74, 159, 255, 0.15);
+    border: none;
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
     transition: background-color var(--transition-normal);
     max-width: var(--container-width);
@@ -27,24 +28,26 @@ header .container {
 }
 
 /* Light theme header styling */
-body.light-theme header .container {
-    background-color: rgba(0, 0, 0, 0.7); /* Оставляем черный фон даже для светлой темы */
+/* body.light-theme header .container {
+    background-color: rgba(0, 0, 0, 0.7); 
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
+} */
 
 /* Logo */
 .logo {
     font-family: var(--font-primary);
     font-size: var(--font-size-xl);
     font-weight: 700;
-    color: #ffffff; /* Белый цвет для контраста на черном фоне */
+    color: #ffffff;
+    /* Белый цвет для контраста на черном фоне */
     transition: color var(--transition-fast);
 }
 
 body.light-theme .logo {
-    color: #ffffff; /* Белый цвет для светлой темы тоже */
+    color: #ffffff;
+    /* Белый цвет для светлой темы тоже */
 }
 
 .logo:hover {
@@ -66,18 +69,21 @@ nav ul li a {
     font-family: var(--font-secondary);
     font-size: var(--font-size-md);
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8); /* Светлый текст с небольшой прозрачностью */
+    color: rgba(255, 255, 255, 0.8);
+    /* Светлый текст с небольшой прозрачностью */
     transition: color var(--transition-fast);
     position: relative;
 }
 
 body.light-theme nav ul li a {
-    color: rgba(255, 255, 255, 0.8); /* Светлый текст для светлой темы тоже */
+    color: rgba(255, 255, 255, 0.8);
+    /* Светлый текст для светлой темы тоже */
 }
 
-nav ul li a:hover, 
+nav ul li a:hover,
 nav ul li a.active {
-    color: #ffffff; /* Полностью белый при наведении */
+    color: #ffffff;
+    /* Полностью белый при наведении */
 }
 
 nav ul li a::after {
@@ -181,7 +187,7 @@ body.light-theme .toggle-ball::after {
     height: 7px;
     background: rgba(0, 0, 0, 0.15);
     border-radius: 50%;
-    box-shadow: 
+    box-shadow:
         8px 4px 0 -1px rgba(0, 0, 0, 0.1),
         3px 10px 0 -1px rgba(0, 0, 0, 0.1);
     opacity: 1;
@@ -361,7 +367,8 @@ body.light-theme .language-option.active {
 .sidebar {
     position: fixed;
     top: 0;
-    right: -300px; /* Start off-screen */
+    right: -300px;
+    /* Start off-screen */
     width: 300px;
     height: 100vh;
     background-color: var(--bg-color);
@@ -471,41 +478,47 @@ body.light-theme .sidebar {
     nav {
         display: none;
     }
-    
+
     .menu-toggle {
         display: block;
     }
-    
+
     header .container {
         padding: 12px 20px;
-        width: calc(100% - 30px); /* Немного уменьшаем отступы для планшетов */
+        width: calc(100% - 30px);
+        /* Немного уменьшаем отступы для планшетов */
     }
 }
 
 @media (max-width: 768px) {
-    .theme-toggle, .language-selector {
+
+    .theme-toggle,
+    .language-selector {
         display: none;
     }
-    
+
     .logo {
         font-size: var(--font-size-lg);
     }
-    
+
     header .container {
-        width: calc(100% - 20px); /* Еще уменьшаем отступы */
+        width: calc(100% - 20px);
+        /* Еще уменьшаем отступы */
     }
 }
 
 @media (max-width: 576px) {
     header {
         top: 0;
-        padding: 10px 0 0 0; /* Уменьшаем верхний отступ */
+        padding: 10px 0 0 0;
+        /* Уменьшаем верхний отступ */
     }
-    
+
     header .container {
         padding: 10px 16px;
         border-radius: 8px;
-        width: calc(100% - 16px); /* Минимальные отступы по бокам */
+        width: calc(100% - 16px);
+        /* Минимальные отступы по бокам */
     }
 }
 
@@ -521,19 +534,19 @@ body.light-theme .sidebar {
         max-height: 100vh;
         padding-bottom: 50px;
     }
-    
+
     body.light-theme .sidebar {
         background-color: rgba(255, 255, 255, 0.85);
     }
-    
+
     .sidebar.active {
         right: 0;
     }
-    
+
     .sidebar-nav {
         padding-top: 80px;
     }
-    
+
     .sidebar-nav a {
         font-size: 1.3rem;
         padding: 15px 0;
